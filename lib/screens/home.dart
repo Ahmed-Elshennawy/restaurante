@@ -256,8 +256,8 @@ class _HomeState extends State<Home> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.network(item['image'],
-                                        height: 130.0,
-                                        width: 160.0,
+                                        height: 110.0,
+                                        width: 150.0,
                                         fit: BoxFit.cover),
                                   ),
                                   Text(item['name'],
@@ -313,8 +313,8 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(20),
                               child: Image.network(
                                   DummyData.saladList[0]['image'],
-                                  height: 110.0,
-                                  width: 110.0,
+                                  height: 105.0,
+                                  width: 105.0,
                                   fit: BoxFit.cover),
                             ),
                             const SizedBox(width: 15.0),
@@ -395,8 +395,8 @@ class _HomeState extends State<Home> {
                               child: Image.network(
                                   DummyData.pizzaList[
                                       DummyData.iceList.length - 1]['image'],
-                                  height: 110.0,
-                                  width: 110.0,
+                                  height: 105.0,
+                                  width: 105.0,
                                   fit: BoxFit.cover),
                             ),
                             const SizedBox(width: 15.0),
@@ -475,8 +475,8 @@ class _HomeState extends State<Home> {
                               child: Image.network(
                                   DummyData.burgerList[
                                       DummyData.burgerList.length - 1]['image'],
-                                  height: 110.0,
-                                  width: 110.0,
+                                  height: 105.0,
+                                  width: 105.0,
                                   fit: BoxFit.cover),
                             ),
                             const SizedBox(width: 15.0),
@@ -564,8 +564,8 @@ class _HomeState extends State<Home> {
                                   DummyData
                                           .iceList[DummyData.iceList.length - 1]
                                       ['image'],
-                                  height: 110.0,
-                                  width: 110.0,
+                                  height: 105.0,
+                                  width: 105.0,
                                   fit: BoxFit.cover),
                             ),
                             const SizedBox(width: 15.0),

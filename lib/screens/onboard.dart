@@ -54,7 +54,7 @@ class _OnboardState extends State<Onboard> {
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image.asset(
                             contents[i].image,
-                            height: 400,
+                            height: 350,
                             width: MediaQuery.of(context).size.width / 1.3,
                             fit: BoxFit.fill,
                           ),
@@ -65,10 +65,6 @@ class _OnboardState extends State<Onboard> {
                                 ? AppWidget.platesDark()
                                 : AppWidget.platesLight()),
                         const SizedBox(height: 20.0),
-                        Text(contents[i].description,
-                            style: themeState.getDarkTheme
-                                ? AppWidget.platesDark()
-                                : AppWidget.platesLight()),
                       ],
                     ),
                   );

@@ -97,7 +97,7 @@ class _OrderState extends State<Order> {
                     direction: DismissDirection.endToStart,
                     child: Container(
                       margin: const EdgeInsets.only(
-                          left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
+                          left: 7.0, right: 7.0, top: 20.0, bottom: 10.0),
                       child: Material(
                         elevation: 5.0,
                         shadowColor: themeState.getDarkTheme
@@ -114,7 +114,7 @@ class _OrderState extends State<Order> {
                             children: [
                               Container(
                                 height: 90,
-                                width: 40,
+                                width: 30,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: themeState.getDarkTheme
@@ -133,7 +133,7 @@ class _OrderState extends State<Order> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 20.0),
+                              const SizedBox(width: 15.0),
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(60.0),
                                 child: Image.network(

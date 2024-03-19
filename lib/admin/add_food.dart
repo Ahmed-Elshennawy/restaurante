@@ -67,12 +67,10 @@ class _AddFoodState extends State<AddFood> {
                     : AppWidget.platesLight(),
               ),
               const SizedBox(height: 20.0),
-              selectedImage == null
-                  ? GestureDetector(
-                      onTap: () {
-                        getImage();
-                      },
-                      child: Center(
+              GestureDetector(
+                onTap: getImage,
+                child: selectedImage == null
+                    ? Center(
                         child: Material(
                           elevation: 6.0,
                           shadowColor: themeState.getDarkTheme
@@ -93,29 +91,30 @@ class _AddFoodState extends State<AddFood> {
                             child: const Icon(Icons.camera_alt_outlined),
                           ),
                         ),
-                      ),
-                    )
-                  : Center(
-                      child: Material(
-                        elevation: 4.0,
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Container(
-                          height: 150,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 1.5),
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20.0),
-                            child: Image.file(
-                              selectedImage!,
-                              fit: BoxFit.cover,
+                      )
+                    : Center(
+                        child: Material(
+                          elevation: 4.0,
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Container(
+                            height: 150,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black, width: 1.5),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20.0),
+                              child: Image.file(
+                                selectedImage!,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+              ),
               const SizedBox(height: 30.0),
               Text('Item Name',
                   style: themeState.getDarkTheme

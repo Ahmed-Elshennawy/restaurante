@@ -58,34 +58,67 @@ class _ProfileState extends State<Profile> {
                 ),
                 GestureDetector(
                   onTap: getImage,
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height / 4.5,
-                      left: MediaQuery.of(context).size.width / 2.9,
-                    ),
-                    child: Material(
-                      elevation: 10.0,
-                      shadowColor:
-                          themeState.getDarkTheme ? Colors.white : Colors.black,
-                      borderRadius: BorderRadius.circular(60.0),
-                      color:
-                          themeState.getDarkTheme ? Colors.black : Colors.white,
-                      child: Container(
-                        height: 120,
-                        width: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
+                  child: selectedImage == null
+                      ? Container(
+                          margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height / 4.5,
+                            left: MediaQuery.of(context).size.width / 2.9,
+                          ),
+                          child: Material(
+                            elevation: 10.0,
+                            shadowColor: themeState.getDarkTheme
+                                ? Colors.white
+                                : Colors.black,
+                            borderRadius: BorderRadius.circular(60.0),
+                            color: themeState.getDarkTheme
+                                ? Colors.black
+                                : Colors.white,
+                            child: Container(
+                              height: 120,
+                              width: 120,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                                size: 35.0,
+                                color: themeState.getDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(
+                          margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height / 4.5,
+                            left: MediaQuery.of(context).size.width / 2.9,
+                          ),
+                          child: Material(
+                            elevation: 10.0,
+                            shadowColor: themeState.getDarkTheme
+                                ? Colors.white
+                                : Colors.black,
+                            borderRadius: BorderRadius.circular(60.0),
+                            color: themeState.getDarkTheme
+                                ? Colors.black
+                                : Colors.white,
+                            child: Container(
+                              height: 120,
+                              width: 120,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(60.0),
+                                child: Image.file(
+                                  selectedImage!,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                        child: Icon(
-                          Icons.camera_alt_outlined,
-                          size: 35.0,
-                          color: themeState.getDarkTheme
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 90.0),
