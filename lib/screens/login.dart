@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../widgets/dark_theme_provider.dart';
 import 'forgotpassword.dart';
-import 'signup.dart';
+import '../admin/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
