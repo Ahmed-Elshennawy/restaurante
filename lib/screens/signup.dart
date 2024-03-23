@@ -2,6 +2,8 @@ import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../ApiFiles/apiLink.dart';
+import '../ApiFiles/crud.dart';
 import '../widgets/reused.dart';
 import 'login.dart';
 
@@ -17,6 +19,22 @@ class _SignUpState extends State<SignUp> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController mailcontroller = TextEditingController();
+  crud Crud = crud();
+
+  signUp() async {
+    var response = await Crud.postRequiest(linkSignUp, {
+      "username": namecontroller.text,
+      "email": mailcontroller.text,
+      "password": passwordcontroller.text
+    });
+
+    if (response['status'] == 'success') {
+      Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
+    } else {
+      print("SignUp failed");
+    }
+  }
+
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -155,20 +173,7 @@ class _SignUpState extends State<SignUp> {
                                     height: MediaQuery.of(context).size.height /
                                         20),
                                 GestureDetector(
-                                  onTap: () async {
-                                    if (_formkey.currentState!.validate()) {
-                                      setState(() {
-                                        name = namecontroller.text;
-                                        email = mailcontroller.text;
-                                        password = passwordcontroller.text;
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Login()));
-                                      });
-                                    }
-                                  },
+                                  onTap: signUp,
                                   child: Material(
                                     elevation: 6,
                                     borderRadius: BorderRadius.circular(20.0),

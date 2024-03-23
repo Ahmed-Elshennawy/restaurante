@@ -16,7 +16,6 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   crud Crud = crud();
-
   String email = "", password = "", name = "";
   TextEditingController namecontroller = TextEditingController();
   TextEditingController mailcontroller = TextEditingController();
@@ -174,20 +173,7 @@ class _SignUpState extends State<SignUp> {
                                     height: MediaQuery.of(context).size.height /
                                         20),
                                 GestureDetector(
-                                  onTap: () async {
-                                    if (_formkey.currentState!.validate()) {
-                                      setState(() {
-                                        name = namecontroller.text;
-                                        email = mailcontroller.text;
-                                        password = passwordcontroller.text;
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Login()));
-                                      });
-                                    }
-                                  },
+                                  onTap: signUp,
                                   child: Material(
                                     elevation: 6,
                                     borderRadius: BorderRadius.circular(20.0),
