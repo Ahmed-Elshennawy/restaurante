@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
-class crud {
-  getRequiest(String url) async {
+class Crud {
+  getRequest(String url) async {
     try {
       var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -17,7 +16,7 @@ class crud {
     }
   }
 
-  postRequiest(String url, Map data) async {
+  postRequest(String url, Map data) async {
     try {
       var response = await http.post(Uri.parse(url), body: data);
       if (response.statusCode == 200) {

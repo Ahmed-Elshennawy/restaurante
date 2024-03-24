@@ -1,11 +1,11 @@
-import 'package:restaurante/screens/navigation.dart';
+import 'package:restaurante/user_screens/navigation.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/dark_theme_provider.dart';
 import 'forgotpassword.dart';
-import '../admin/signup.dart';
+import 'signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

@@ -19,16 +19,16 @@ class _SignUpState extends State<SignUp> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController mailcontroller = TextEditingController();
-  crud Crud = crud();
+  Crud crud = Crud();
 
   signUp() async {
-    var response = await Crud.postRequiest(linkSignUp, {
+    var response = await crud.postRequest(linkSignUp, {
       "username": namecontroller.text,
       "email": mailcontroller.text,
       "password": passwordcontroller.text
     });
 
-    if (response['status'] == 'success') {
+    if (response["status"] == "success") {
       Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
     } else {
       print("SignUp failed");
@@ -173,7 +173,9 @@ class _SignUpState extends State<SignUp> {
                                     height: MediaQuery.of(context).size.height /
                                         20),
                                 GestureDetector(
-                                  onTap: signUp,
+                                  onTap: () async {
+                                    await signUp();
+                                  },
                                   child: Material(
                                     elevation: 6,
                                     borderRadius: BorderRadius.circular(20.0),

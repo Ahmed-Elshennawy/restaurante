@@ -1,4 +1,4 @@
-import 'package:restaurante/admin/signup.dart';
+import 'signup.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPassword extends StatefulWidget {

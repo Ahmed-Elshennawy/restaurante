@@ -1,5 +1,5 @@
 import 'package:restaurante/widgets/provider.dart';
-import 'package:restaurante/screens/onboard.dart';
+import 'package:restaurante/user_screens/onboard.dart';
 import 'widgets/dark_theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';

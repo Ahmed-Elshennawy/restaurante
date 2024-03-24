@@ -1,4 +1,4 @@
-import 'package:restaurante/admin/home_admin.dart';
+import 'package:restaurante/admin_screens/home_admin.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
 
