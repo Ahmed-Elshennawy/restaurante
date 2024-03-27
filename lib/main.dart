@@ -1,3 +1,6 @@
+import 'package:restaurante/user_screens/login.dart';
+import 'package:restaurante/user_screens/navigation.dart';
+import 'package:restaurante/user_screens/signup.dart';
 import 'package:restaurante/widgets/provider.dart';
 import 'package:restaurante/user_screens/onboard.dart';
 import 'widgets/dark_theme_provider.dart';
@@ -44,6 +47,13 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Restaurante',
+            initialRoute: 'onboard',
+            routes: {
+              'login': (context) => const Login(),
+              'navigation': (context) => const Navigation(),
+              'onboard': (context) => const Onboard(),
+              'signup': (context) => const SignUp(),
+            },
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
             home: const Onboard(),
           );

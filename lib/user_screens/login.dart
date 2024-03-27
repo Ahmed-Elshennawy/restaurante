@@ -77,125 +77,127 @@ class _LoginState extends State<Login> {
                                   ? Colors.black
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(20)),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 35),
-                              Text('Login',
-                                  style: themeState.getDarkTheme
-                                      ? AppWidget.largeDark()
-                                      : AppWidget.largeLight()),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 35),
-                              TextFormField(
-                                controller: usermailcontroller,
-                                keyboardType: TextInputType.emailAddress,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Email can\'t be empty';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                    hintText: 'Email',
-                                    hintStyle: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
-                                    prefixIcon: Icon(
-                                      Icons.email_outlined,
-                                      color: themeState.getDarkTheme
-                                          ? Colors.white
-                                          : Colors.black,
-                                    )),
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 35),
-                              TextFormField(
-                                controller: userpasswordcontroller,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Password can\'t be empty';
-                                  }
-                                  return null;
-                                },
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                    hintText: 'Password',
-                                    hintStyle: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
-                                    prefixIcon: Icon(
-                                      Icons.password_outlined,
-                                      color: themeState.getDarkTheme
-                                          ? Colors.white
-                                          : Colors.black,
-                                    )),
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 35),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ForgotPassword()));
-                                },
-                                child: Container(
-                                    alignment: Alignment.topRight,
-                                    child: Text('Forget Password ?',
-                                        style: themeState.getDarkTheme
-                                            ? AppWidget.platesDark()
-                                            : AppWidget.platesLight())),
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 40),
-                              GestureDetector(
-                                onTap: () async {
-                                  if (_formkey.currentState!.validate()) {
-                                    setState(() {
-                                      email = usermailcontroller.text;
-                                      password = userpasswordcontroller.text;
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Navigation()));
-                                    });
-                                  }
-                                },
-                                child: Material(
-                                  elevation: 6,
-                                  borderRadius: BorderRadius.circular(20.0),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        35),
+                                Text('Login',
+                                    style: themeState.getDarkTheme
+                                        ? AppWidget.largeDark()
+                                        : AppWidget.largeLight()),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        35),
+                                TextFormField(
+                                  controller: usermailcontroller,
+                                  keyboardType: TextInputType.emailAddress,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Email can\'t be empty';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                      hintText: 'Email',
+                                      hintStyle: themeState.getDarkTheme
+                                          ? AppWidget.platesDark()
+                                          : AppWidget.platesLight(),
+                                      prefixIcon: Icon(
+                                        Icons.email_outlined,
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white
+                                            : Colors.black,
+                                      )),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        35),
+                                TextFormField(
+                                  controller: userpasswordcontroller,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Password can\'t be empty';
+                                    }
+                                    return null;
+                                  },
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                      hintText: 'Password',
+                                      hintStyle: themeState.getDarkTheme
+                                          ? AppWidget.platesDark()
+                                          : AppWidget.platesLight(),
+                                      prefixIcon: Icon(
+                                        Icons.password_outlined,
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white
+                                            : Colors.black,
+                                      )),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        35),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ForgotPassword()));
+                                  },
                                   child: Container(
-                                    padding: const EdgeInsets.all(12.0),
-                                    width:
-                                        MediaQuery.of(context).size.width / 2.1,
-                                    decoration: BoxDecoration(
-                                        color: Colors.orange,
-                                        borderRadius:
-                                            BorderRadius.circular(20.0)),
-                                    child: const Center(
-                                      child: Text(
-                                        'LOGIN',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold),
+                                      alignment: Alignment.topRight,
+                                      child: Text('Forget Password ?',
+                                          style: themeState.getDarkTheme
+                                              ? AppWidget.platesDark()
+                                              : AppWidget.platesLight())),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        40),
+                                GestureDetector(
+                                  onTap: () async {
+                                    if (_formkey.currentState!.validate()) {
+                                      setState(() {
+                                        email = usermailcontroller.text;
+                                        password = userpasswordcontroller.text;
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const Navigation()));
+                                      });
+                                    }
+                                  },
+                                  child: Material(
+                                    elevation: 6,
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(12.0),
+                                      width: MediaQuery.of(context).size.width /
+                                          2.1,
+                                      decoration: BoxDecoration(
+                                          color: Colors.orange,
+                                          borderRadius:
+                                              BorderRadius.circular(20.0)),
+                                      child: const Center(
+                                        child: Text(
+                                          'LOGIN',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 28),
-                            ],
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height /
+                                        28),
+                              ],
+                            ),
                           ),
                         ),
                       ),

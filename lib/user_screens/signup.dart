@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +17,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  String email = "", password = "", name = "";
   TextEditingController namecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController mailcontroller = TextEditingController();
@@ -35,8 +36,8 @@ class _SignUpState extends State<SignUp> {
     isLoading = false;
     setState(() {});
 
+    Navigator.pushNamedAndRemoveUntil(context, "login", (route) => false);
     if (response["status"] == "success") {
-      Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
     } else {
       print("SignUp failed");
     }
