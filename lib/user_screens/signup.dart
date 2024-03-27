@@ -20,13 +20,20 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController mailcontroller = TextEditingController();
   Crud crud = Crud();
+  bool isLoading = false;
 
   signUp() async {
+    isLoading = true;
+    setState(() {});
+
     var response = await crud.postRequest(linkSignUp, {
       "username": namecontroller.text,
       "email": mailcontroller.text,
       "password": passwordcontroller.text
     });
+
+    isLoading = false;
+    setState(() {});
 
     if (response["status"] == "success") {
       Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
@@ -55,16 +62,19 @@ class _SignUpState extends State<SignUp> {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight)),
               ),
-              Container(
-                margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 3),
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    color:
-                        themeState.getDarkTheme ? Colors.black : Colors.white,
-                    borderRadius: BorderRadius.circular(40)),
-              ),
+              isLoading == true
+                  ? Center(child: CircularProgressIndicator())
+                  : Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height / 3),
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: themeState.getDarkTheme
+                              ? Colors.black
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(40)),
+                    ),
               Container(
                 margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height / 16,
