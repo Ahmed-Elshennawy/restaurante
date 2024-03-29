@@ -1,6 +1,6 @@
 import 'package:restaurante/user_screens/home.dart';
-import 'package:restaurante/user_screens/signupProcess/login.dart';
 import 'package:restaurante/user_screens/navigation.dart';
+import 'package:restaurante/user_screens/signupProcess/login.dart';
 import 'package:restaurante/user_screens/signupProcess/signup.dart';
 import 'package:restaurante/user_screens/signupProcess/success.dart';
 import 'package:restaurante/widgets/provider.dart';
