@@ -1,4 +1,4 @@
-import 'signupProcess/signup.dart';
+import 'signup.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPassword extends StatefulWidget {
