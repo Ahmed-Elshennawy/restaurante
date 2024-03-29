@@ -13,15 +13,15 @@ class _SuccessState extends State<Success> {
     return Scaffold(
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Center(
-          child:
-              Text("new account was created successfully now you can log in"),
+          child: Text("new account was created successfully now you can log in",
+              style: TextStyle(fontSize: 20)),
         ),
         MaterialButton(
             textColor: Colors.white,
             color: Colors.blue,
             onPressed: () {
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil("success", (route) => false);
+                  .pushNamedAndRemoveUntil("login", (route) => false);
             },
             child: Text("Log in")),
       ]),

@@ -1,3 +1,5 @@
+import 'package:restaurante/components/custometextForm.dart';
+import 'package:restaurante/components/valid.dart';
 import 'package:restaurante/user_screens/navigation.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
@@ -90,50 +92,24 @@ class _LoginState extends State<Login> {
                                 SizedBox(
                                     height: MediaQuery.of(context).size.height /
                                         35),
-                                TextFormField(
+                                CustTextFormSign(
                                   controller: usermailcontroller,
-                                  keyboardType: TextInputType.emailAddress,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Email can\'t be empty';
-                                    }
-                                    return null;
+                                  hint: "email",
+                                  valid: (value) {
+                                    return validInput(value!, 3, 20);
                                   },
-                                  decoration: InputDecoration(
-                                      hintText: 'Email',
-                                      hintStyle: themeState.getDarkTheme
-                                          ? AppWidget.platesDark()
-                                          : AppWidget.platesLight(),
-                                      prefixIcon: Icon(
-                                        Icons.email_outlined,
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black,
-                                      )),
+                                  // obscureText: true,
                                 ),
                                 SizedBox(
                                     height: MediaQuery.of(context).size.height /
                                         35),
-                                TextFormField(
+                                CustTextFormSign(
                                   controller: userpasswordcontroller,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Password can\'t be empty';
-                                    }
-                                    return null;
+                                  hint: "password",
+                                  valid: (value) {
+                                    return validInput(value!, 3, 20);
                                   },
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                      hintText: 'Password',
-                                      hintStyle: themeState.getDarkTheme
-                                          ? AppWidget.platesDark()
-                                          : AppWidget.platesLight(),
-                                      prefixIcon: Icon(
-                                        Icons.password_outlined,
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black,
-                                      )),
+                                  // obscureText: true,
                                 ),
                                 SizedBox(
                                     height: MediaQuery.of(context).size.height /

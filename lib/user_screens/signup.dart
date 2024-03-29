@@ -1,3 +1,5 @@
+import 'package:restaurante/components/custometextForm.dart';
+import 'package:restaurante/components/valid.dart';
 import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,30 +17,35 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  GlobalKey<FormState> formstate = GlobalKey();
+
   TextEditingController namecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController mailcontroller = TextEditingController();
+
   Crud crud = Crud();
   bool isLoading = false;
 
   signUp() async {
-    isLoading = true;
-    setState(() {});
+    if (formstate.currentState!.validate()) {
+      isLoading = true;
+      setState(() {});
 
-    var response = await crud.postRequest(linkSignUp, {
-      "username": namecontroller.text,
-      "email": mailcontroller.text,
-      "password": passwordcontroller.text
-    });
+      var response = await crud.postRequest(linkSignUp, {
+        "username": namecontroller.text,
+        "email": mailcontroller.text,
+        "password": passwordcontroller.text
+      });
 
-    isLoading = false;
-    setState(() {});
+      isLoading = false;
+      setState(() {});
 
-    if (response["status"] == "success") {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil("success", (route) => false);
-    } else {
-      print("SignUp Failed");
+      if (response["status"] == "success") {
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil("success", (route) => false);
+      } else {
+        print("SignUp Failed");
+      }
     }
   }
 
@@ -126,75 +133,39 @@ class _SignUpState extends State<SignUp> {
                                                   .size
                                                   .height /
                                               35),
-                                      TextFormField(
+                                      CustTextFormSign(
                                         controller: namecontroller,
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter your name';
-                                          }
-                                          return null;
+                                        hint: "username",
+                                        valid: (value) {
+                                          return validInput(value!, 3, 20);
                                         },
-                                        decoration: InputDecoration(
-                                            hintText: 'Name',
-                                            hintStyle: themeState.getDarkTheme
-                                                ? AppWidget.platesDark()
-                                                : AppWidget.platesLight(),
-                                            prefixIcon: Icon(
-                                                Icons.email_outlined,
-                                                color: themeState.getDarkTheme
-                                                    ? Colors.white
-                                                    : Colors.black)),
+                                        // obscureText: true,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
                                               35),
-                                      TextFormField(
+                                      CustTextFormSign(
                                         controller: mailcontroller,
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Email can\'t be empty';
-                                          }
-                                          return null;
+                                        hint: "email",
+                                        valid: (value) {
+                                          return validInput(value!, 3, 20);
                                         },
-                                        decoration: InputDecoration(
-                                            hintText: 'Email',
-                                            hintStyle: themeState.getDarkTheme
-                                                ? AppWidget.platesDark()
-                                                : AppWidget.platesLight(),
-                                            prefixIcon: Icon(
-                                                Icons.email_outlined,
-                                                color: themeState.getDarkTheme
-                                                    ? Colors.white
-                                                    : Colors.black)),
+                                        // obscureText: true,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
                                               35),
-                                      TextFormField(
+                                      CustTextFormSign(
                                         controller: passwordcontroller,
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Password can\'t be empty';
-                                          }
-                                          return null;
+                                        hint: "password",
+                                        valid: (value) {
+                                          return validInput(value!, 3, 20);
                                         },
-                                        obscureText: true,
-                                        decoration: InputDecoration(
-                                            hintText: 'Password',
-                                            hintStyle: themeState.getDarkTheme
-                                                ? AppWidget.platesDark()
-                                                : AppWidget.platesLight(),
-                                            prefixIcon: Icon(
-                                                Icons.password_outlined,
-                                                color: themeState.getDarkTheme
-                                                    ? Colors.white
-                                                    : Colors.black)),
+                                        // obscureText: true,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)

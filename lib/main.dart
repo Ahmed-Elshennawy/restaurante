@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
               'onboard': (context) => Onboard(),
               'signup': (context) => SignUp(),
               'home': (context) => Home(),
-              "succes": (context) => Success(),
+              "success": (context) => Success(),
             },
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
             home: const Onboard(),
