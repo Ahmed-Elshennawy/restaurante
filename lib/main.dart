@@ -5,12 +5,16 @@ import 'package:restaurante/user_screens/signup.dart';
 import 'package:restaurante/user_screens/success.dart';
 import 'package:restaurante/widgets/provider.dart';
 import 'package:restaurante/user_screens/onboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'widgets/dark_theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'widgets/theme_data.dart';
 
-void main() {
+late SharedPreferences sharedPref;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  sharedPref = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -49,7 +53,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Restaurante',
-            initialRoute: '/',
+            initialRoute: sharedPref.getString("id") == null ? "login" : "home",
             routes: {
               'login': (context) => Login(),
               'navigation': (context) => Navigation(),

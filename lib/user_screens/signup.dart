@@ -17,7 +17,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  GlobalKey<FormState> formstate = GlobalKey();
+  final _formkey = GlobalKey<FormState>();
 
   TextEditingController namecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
@@ -26,8 +26,8 @@ class _SignUpState extends State<SignUp> {
   Crud crud = Crud();
   bool isLoading = false;
 
-  signUp() async {
-    if (formstate.currentState!.validate()) {
+  signup() async {
+    if (_formkey.currentState!.validate()) {
       isLoading = true;
       setState(() {});
 
@@ -44,12 +44,11 @@ class _SignUpState extends State<SignUp> {
         Navigator.of(context)
             .pushNamedAndRemoveUntil("success", (route) => false);
       } else {
-        print("SignUp Failed");
+        print("Signup Failed");
       }
     }
   }
 
-  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -174,7 +173,7 @@ class _SignUpState extends State<SignUp> {
                                               20),
                                       GestureDetector(
                                         onTap: () async {
-                                          await signUp();
+                                          await signup();
                                         },
                                         child: Material(
                                           elevation: 6,
