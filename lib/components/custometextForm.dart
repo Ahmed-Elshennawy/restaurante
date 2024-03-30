@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:restaurante/widgets/reused.dart';
@@ -8,12 +7,15 @@ class CustTextFormSign extends StatelessWidget {
   final String hint;
   final String? Function(String?) valid;
   final TextEditingController controller;
-  const CustTextFormSign(
-      {Key? key,
-      required this.hint,
-      required this.controller,
-      required this.valid})
-      : super(key: key);
+  final bool secureText;
+
+  const CustTextFormSign({
+    super.key,
+    required this.hint,
+    required this.controller,
+    required this.valid,
+    this.secureText = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +24,17 @@ class CustTextFormSign extends StatelessWidget {
     return TextFormField(
       controller: controller,
       validator: valid,
-      obscureText: false,
+      obscureText: secureText,
       decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: themeState.getDarkTheme
-              ? AppWidget.platesDark()
-              : AppWidget.platesLight(),
-          prefixIcon: Icon(Icons.password_outlined,
-              color: themeState.getDarkTheme ? Colors.white : Colors.black)),
+        hintText: hint,
+        hintStyle: themeState.getDarkTheme
+            ? AppWidget.platesDark()
+            : AppWidget.platesLight(),
+        prefixIcon: Icon(
+          Icons.password_outlined,
+          color: themeState.getDarkTheme ? Colors.white : Colors.black,
+        ),
+      ),
     );
   }
 }

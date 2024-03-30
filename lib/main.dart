@@ -2,7 +2,6 @@ import 'package:restaurante/user_screens/home.dart';
 import 'package:restaurante/user_screens/navigation.dart';
 import 'package:restaurante/user_screens/login.dart';
 import 'package:restaurante/user_screens/signup.dart';
-import 'package:restaurante/user_screens/success.dart';
 import 'package:restaurante/widgets/provider.dart';
 import 'package:restaurante/user_screens/onboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,12 +54,11 @@ class _MyAppState extends State<MyApp> {
             title: 'Restaurante',
             initialRoute: sharedPref.getString("id") == null ? "login" : "home",
             routes: {
-              'login': (context) => Login(),
-              'navigation': (context) => Navigation(),
-              'onboard': (context) => Onboard(),
-              'signup': (context) => SignUp(),
-              'home': (context) => Home(),
-              "success": (context) => Success(),
+              'login': (context) => const Login(),
+              'navigation': (context) => const Navigation(),
+              'onboard': (context) => const Onboard(),
+              'signup': (context) => const SignUp(),
+              'home': (context) => const Home(),
             },
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
             home: const Onboard(),

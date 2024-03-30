@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:restaurante/ApiFiles/apiLink.dart';
 import 'package:restaurante/ApiFiles/crud.dart';
 import 'package:restaurante/components/custometextForm.dart';
@@ -43,9 +46,28 @@ class _LoginState extends State<Login> {
         sharedPref.setString("id", response['data']['id'].toString());
         sharedPref.setString("username", response['data']['username']);
         sharedPref.setString("email", response['data']['email']);
-        Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil("navigation", (route) => false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(milliseconds: 1000),
+            content: Text(
+              'LogIn Successfully',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0),
+            ),
+            backgroundColor: Colors.green,
+          ),
+        );
       } else {
-        print("Login failed");
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.info,
+          animType: AnimType.rightSlide,
+          desc: 'LogIn Failed, Email or Password is Incorrect.',
+        ).show();
       }
     }
   }
@@ -56,7 +78,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       body: SingleChildScrollView(
         child: isLoading == true
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Container(
                 margin: const EdgeInsets.all(0.0),
                 child: Stack(
@@ -140,7 +162,6 @@ class _LoginState extends State<Login> {
                                         valid: (value) {
                                           return validInput(value!, 3, 20);
                                         },
-                                        // obscureText: true,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
@@ -150,10 +171,10 @@ class _LoginState extends State<Login> {
                                       CustTextFormSign(
                                         controller: userpasswordcontroller,
                                         hint: "password",
+                                        secureText: true,
                                         valid: (value) {
                                           return validInput(value!, 3, 20);
                                         },
-                                        // obscureText: true,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)

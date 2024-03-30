@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:restaurante/components/custometextForm.dart';
 import 'package:restaurante/components/valid.dart';
 import 'package:restaurante/widgets/dark_theme_provider.dart';
@@ -42,9 +45,27 @@ class _SignUpState extends State<SignUp> {
 
       if (response["status"] == "success") {
         Navigator.of(context)
-            .pushNamedAndRemoveUntil("success", (route) => false);
+            .pushNamedAndRemoveUntil("login", (route) => false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(milliseconds: 1000),
+            content: Text(
+              'SignUp Successfully',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0),
+            ),
+            backgroundColor: Colors.green,
+          ),
+        );
       } else {
-        print("Signup Failed");
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.info,
+          animType: AnimType.rightSlide,
+          desc: 'Signed Up Failed, SgnUp agian.',
+        ).show();
       }
     }
   }
@@ -56,7 +77,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       body: SingleChildScrollView(
         child: isLoading == true
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Container(
                 margin: const EdgeInsets.all(0.0),
                 child: Stack(
@@ -138,7 +159,6 @@ class _SignUpState extends State<SignUp> {
                                         valid: (value) {
                                           return validInput(value!, 3, 20);
                                         },
-                                        // obscureText: true,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
@@ -151,7 +171,6 @@ class _SignUpState extends State<SignUp> {
                                         valid: (value) {
                                           return validInput(value!, 3, 20);
                                         },
-                                        // obscureText: true,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
@@ -161,10 +180,10 @@ class _SignUpState extends State<SignUp> {
                                       CustTextFormSign(
                                         controller: passwordcontroller,
                                         hint: "password",
+                                        secureText: true,
                                         valid: (value) {
                                           return validInput(value!, 3, 20);
                                         },
-                                        // obscureText: true,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
