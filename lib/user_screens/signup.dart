@@ -64,7 +64,7 @@ class _SignUpState extends State<SignUp> {
           context: context,
           dialogType: DialogType.info,
           animType: AnimType.rightSlide,
-          desc: 'Signed Up Failed, SgnUp agian.',
+          desc: 'Sign Up Failed, Try to Sign Up agian.',
         ).show();
       }
     }

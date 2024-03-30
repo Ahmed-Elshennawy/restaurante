@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurante/main.dart';
 import 'dart:io';
 
 import '../widgets/dark_theme_provider.dart';
@@ -303,46 +305,49 @@ class _ProfileState extends State<Profile> {
             const SizedBox(height: 20.0),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Material(
-                borderRadius: BorderRadius.circular(10.0),
-                elevation: 5.0,
-                shadowColor:
-                    themeState.getDarkTheme ? Colors.white : Colors.black,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 10.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color:
-                        themeState.getDarkTheme ? Colors.black : Colors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.delete,
-                        color: themeState.getDarkTheme
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                      const SizedBox(width: 20.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Delete Account',
-                            style: TextStyle(
-                              color: themeState.getDarkTheme
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w600,
+              child: GestureDetector(
+                onTap: () {},
+                child: Material(
+                  borderRadius: BorderRadius.circular(10.0),
+                  elevation: 5.0,
+                  shadowColor:
+                      themeState.getDarkTheme ? Colors.white : Colors.black,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                      horizontal: 10.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color:
+                          themeState.getDarkTheme ? Colors.black : Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.delete,
+                          color: themeState.getDarkTheme
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                        const SizedBox(width: 20.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Delete Account',
+                              style: TextStyle(
+                                color: themeState.getDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -350,46 +355,53 @@ class _ProfileState extends State<Profile> {
             const SizedBox(height: 20.0),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Material(
-                borderRadius: BorderRadius.circular(10.0),
-                elevation: 5.0,
-                shadowColor:
-                    themeState.getDarkTheme ? Colors.white : Colors.black,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 10.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color:
-                        themeState.getDarkTheme ? Colors.black : Colors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.logout,
-                        color: themeState.getDarkTheme
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                      const SizedBox(width: 20.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'LogOut',
-                            style: TextStyle(
-                              color: themeState.getDarkTheme
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w600,
+              child: GestureDetector(
+                onTap: () {
+                  sharedPref.clear();
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil("login", (route) => false);
+                },
+                child: Material(
+                  borderRadius: BorderRadius.circular(10.0),
+                  elevation: 5.0,
+                  shadowColor:
+                      themeState.getDarkTheme ? Colors.white : Colors.black,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                      horizontal: 10.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color:
+                          themeState.getDarkTheme ? Colors.black : Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          color: themeState.getDarkTheme
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                        const SizedBox(width: 20.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'LogOut',
+                              style: TextStyle(
+                                color: themeState.getDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
