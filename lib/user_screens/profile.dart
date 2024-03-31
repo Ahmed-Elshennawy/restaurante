@@ -1,11 +1,13 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurante/ApiFiles/apiLink.dart';
 import 'package:restaurante/main.dart';
 import 'dart:io';
-
+import '../ApiFiles/crud.dart';
 import '../widgets/dark_theme_provider.dart';
 
 class Profile extends StatefulWidget {
@@ -26,6 +28,37 @@ class _ProfileState extends State<Profile> {
       setState(() {
         selectedImage = File(image.path);
       });
+    }
+  }
+
+  Crud crud = Crud();
+
+  DeleteAccount() async {
+    var response = await crud.postRequest(linkUserDelete, {
+      "id": sharedPref.getString("id").toString(),
+    });
+    if (response["status"] == "success") {
+      Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(milliseconds: 1000),
+          content: Text(
+            'Account Deleted Successfully',
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0),
+          ),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.info,
+        animType: AnimType.rightSlide,
+        desc: 'Can\'t delete the account now, please try again later',
+      ).show();
     }
   }
 
@@ -306,7 +339,9 @@ class _ProfileState extends State<Profile> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20.0),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  await DeleteAccount();
+                },
                 child: Material(
                   borderRadius: BorderRadius.circular(10.0),
                   elevation: 5.0,
