@@ -128,7 +128,7 @@ class _ProfileState extends State<Profile> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Ahmed Elshennawy',
+                        sharedPref.getString("username").toString(),
                         style: GoogleFonts.aboreto(
                           color: Colors.white,
                           fontSize: 25.0,
@@ -182,7 +182,7 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           Text(
-                            'Ahmed Elshennawy',
+                            sharedPref.getString("username").toString(),
                             style: TextStyle(
                               color: themeState.getDarkTheme
                                   ? Colors.white
@@ -239,7 +239,7 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           Text(
-                            'ahmedlshennawy10@gmail.com',
+                            sharedPref.getString("email").toString(),
                             style: TextStyle(
                               color: themeState.getDarkTheme
                                   ? Colors.white

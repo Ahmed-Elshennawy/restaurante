@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Restaurante',
-            initialRoute: sharedPref.getString("id") == null ? "login" : "home",
+            initialRoute: sharedPref.getString("id") == null ? "login" : "navigation",
             routes: {
               'login': (context) => const Login(),
               'navigation': (context) => const Navigation(),

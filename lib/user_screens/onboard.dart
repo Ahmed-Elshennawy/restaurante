@@ -47,7 +47,7 @@ class _OnboardState extends State<Onboard> {
                 },
                 itemBuilder: (_, i) {
                   return Padding(
-                    padding: const EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Column(
                       children: [
                         ClipRRect(
@@ -59,7 +59,7 @@ class _OnboardState extends State<Onboard> {
                             fit: BoxFit.fill,
                           ),
                         ),
-                        const SizedBox(height: 40.0),
+                        const SizedBox(height: 20.0),
                         Text(contents[i].title,
                             style: themeState.getDarkTheme
                                 ? AppWidget.platesDark()
