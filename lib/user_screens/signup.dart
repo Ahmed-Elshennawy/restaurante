@@ -50,7 +50,7 @@ class _SignUpState extends State<SignUp> {
           const SnackBar(
             duration: Duration(milliseconds: 1000),
             content: Text(
-              'SignUp Successfully',
+              'SIGN UP Successfully',
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

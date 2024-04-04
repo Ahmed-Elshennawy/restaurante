@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+// import 'package:restaurante/main.dart';
 
 class WalletProvider extends ChangeNotifier {
   int _amount = 0;

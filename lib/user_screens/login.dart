@@ -46,6 +46,9 @@ class _LoginState extends State<Login> {
         sharedPref.setString("id", response['data']['id'].toString());
         sharedPref.setString("username", response['data']['username']);
         sharedPref.setString("email", response['data']['email']);
+        sharedPref.setString(
+            "wallet_palance", response['data']['wallet_palance'].toString());
+
         Navigator.of(context)
             .pushNamedAndRemoveUntil("navigation", (route) => false);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -160,7 +163,7 @@ class _LoginState extends State<Login> {
                                         controller: usermailcontroller,
                                         hint: "email",
                                         valid: (value) {
-                                          return validInput(value!, 3, 20);
+                                          return validInput(value!, 3, 50);
                                         },
                                       ),
                                       SizedBox(
@@ -173,7 +176,7 @@ class _LoginState extends State<Login> {
                                         hint: "password",
                                         secureText: true,
                                         valid: (value) {
-                                          return validInput(value!, 3, 20);
+                                          return validInput(value!, 3, 50);
                                         },
                                       ),
                                       SizedBox(
