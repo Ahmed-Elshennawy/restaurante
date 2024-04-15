@@ -88,107 +88,7 @@ class _WalletState extends State<Wallet> {
                 );
               },
             ),
-            const SizedBox(height: 20.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: Text(
-                'Add money',
-                style: themeState.getDarkTheme
-                    ? AppWidget.platesDark()
-                    : AppWidget.platesLight(),
-              ),
-            ),
-            const SizedBox(height: 20.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    int amount = 100;
-                    Provider.of<WalletProvider>(context, listen: false)
-                        .addToWallet(amount);
-                    setState(() {});
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xffe9e2e2)),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Text(
-                      '\$' '100',
-                      style: themeState.getDarkTheme
-                          ? AppWidget.platesDark()
-                          : AppWidget.platesLight(),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    int amount = 500;
-                    Provider.of<WalletProvider>(context, listen: false)
-                        .addToWallet(amount);
-                    setState(() {});
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xffe9e2e2)),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Text(
-                      '\$' '500',
-                      style: themeState.getDarkTheme
-                          ? AppWidget.platesDark()
-                          : AppWidget.platesLight(),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    int amount = 1000;
-                    Provider.of<WalletProvider>(context, listen: false)
-                        .addToWallet(amount);
-                    setState(() {});
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xffe9e2e2)),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Text(
-                      '\$' '1000',
-                      style: themeState.getDarkTheme
-                          ? AppWidget.platesDark()
-                          : AppWidget.platesLight(),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    int amount = 2000;
-                    Provider.of<WalletProvider>(context, listen: false)
-                        .addToWallet(amount);
-                    setState(() {});
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xffe9e2e2)),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Text(
-                      '\$' '2000',
-                      style: themeState.getDarkTheme
-                          ? AppWidget.platesDark()
-                          : AppWidget.platesLight(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 50.0),
+            const SizedBox(height: 60.0),
             InkWell(
               onTap: () {
                 openEdit(context);
@@ -222,6 +122,8 @@ class _WalletState extends State<Wallet> {
   }
 
   void openEdit(BuildContext context) {
+    final amountController = TextEditingController();
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -260,7 +162,8 @@ class _WalletState extends State<Wallet> {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: TextField(
-                  controller: amountcontroller,
+                  controller: amountController,
+                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Enter Amount',
@@ -272,7 +175,7 @@ class _WalletState extends State<Wallet> {
                 child: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
-                    int amountToAdd = int.tryParse(amountcontroller.text) ?? 0;
+                    int amountToAdd = int.tryParse(amountController.text) ?? 0;
                     Provider.of<WalletProvider>(context, listen: false)
                         .addToWallet(amountToAdd);
                   },

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurante/components/editWallet.dart';
 import '../widgets/dark_theme_provider.dart';
 import '../widgets/reused.dart';
-import '../widgets/provider.dart'; // Import your WalletProvider
+import '../widgets/provider.dart';
 import 'details.dart';
 
 class Order extends StatefulWidget {
@@ -213,6 +214,7 @@ class _OrderState extends State<Order> {
                   );
                 } else if (totalPrice <= walletProvider.amount) {
                   walletProvider.amount -= totalPrice.toInt();
+                  editWallet(walletProvider.amount);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       duration: Duration(milliseconds: 800),

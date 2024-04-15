@@ -163,7 +163,7 @@ class _LoginState extends State<Login> {
                                         controller: usermailcontroller,
                                         hint: "email",
                                         valid: (value) {
-                                          return validInput(value!, 3, 50);
+                                          return validMail(value!, 3, 50);
                                         },
                                       ),
                                       SizedBox(

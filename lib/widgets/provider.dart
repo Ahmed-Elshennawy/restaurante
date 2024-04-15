@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-// import 'package:restaurante/main.dart';
+import 'package:restaurante/components/editWallet.dart';
+import 'package:restaurante/main.dart';
 
 class WalletProvider extends ChangeNotifier {
-  int _amount = 0;
-
+  int _amount = int.parse(sharedPref.getString("wallet_palance")!);
   int get amount => _amount;
 
   set amount(int value) {
@@ -13,6 +13,7 @@ class WalletProvider extends ChangeNotifier {
 
   void addToWallet(int value) {
     _amount += value;
+    editWallet(_amount);
     notifyListeners();
   }
 }

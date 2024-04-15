@@ -157,7 +157,7 @@ class _SignUpState extends State<SignUp> {
                                         controller: namecontroller,
                                         hint: "username",
                                         valid: (value) {
-                                          return validInput(value!, 3, 20);
+                                          return validInput(value!, 3, 50);
                                         },
                                       ),
                                       SizedBox(
@@ -169,7 +169,7 @@ class _SignUpState extends State<SignUp> {
                                         controller: mailcontroller,
                                         hint: "email",
                                         valid: (value) {
-                                          return validInput(value!, 3, 20);
+                                          return validMail(value!, 3, 50);
                                         },
                                       ),
                                       SizedBox(
@@ -182,7 +182,7 @@ class _SignUpState extends State<SignUp> {
                                         hint: "password",
                                         secureText: true,
                                         valid: (value) {
-                                          return validInput(value!, 3, 20);
+                                          return validInput(value!, 3, 50);
                                         },
                                       ),
                                       SizedBox(
