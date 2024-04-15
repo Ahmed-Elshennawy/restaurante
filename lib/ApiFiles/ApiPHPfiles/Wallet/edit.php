@@ -6,14 +6,14 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 
 include '../config/db.php';
 
-$username = filterReq("username");
-$email = filterReq("email");
-$password = filterReq("password");
+$id = filterReq(("id"));
+$wallet_palance = filterReq(("wallet_palance"));
 
-$stmt = $con->prepare('INSERT INTO `users` (`username`, `email`, `password`, `wallet_palance`) VALUES (? , ? , ?, 0)');
-$stmt->execute(array($username,$email,$password));
+$stmt = $con->prepare('UPDATE users SET `wallet_palance` = ? where `id` = ?');
 
+$stmt->execute(array($wallet_palance,$id));
 $count = $stmt->rowCount();
+
 if($count > 0){
     echo json_encode(array("status"=>"success"));
 }else{

@@ -6,13 +6,12 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 
 include '../config/db.php';
 
-$email = filterReq("email");
-$password = filterReq("password");
+$userid = filterReq("id");
 
-$stmt = $con->prepare("SELECT * FROM users WHERE email = ? AND `password` = ? ");
-$stmt->execute(array($email,$password));
+$stmt = $con->prepare("SELECT * FROM orders WHERE `order_user` = ?");
+$stmt->execute(array($userid));
 
-$data = $stmt->fetch(PDO::FETCH_ASSOC);
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $count = $stmt->rowCount();
 if($count > 0){
     echo json_encode(array("status"=>"success", "data" => $data));

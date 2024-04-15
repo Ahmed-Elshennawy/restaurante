@@ -6,14 +6,13 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 
 include '../config/db.php';
 
-$username = filterReq("username");
-$email = filterReq("email");
-$password = filterReq("password");
+$orderid = filterReq("id");
 
-$stmt = $con->prepare('INSERT INTO `users` (`username`, `email`, `password`, `wallet_palance`) VALUES (? , ? , ?, 0)');
-$stmt->execute(array($username,$email,$password));
+$stmt = $con->prepare("DELETE FROM orders WHERE `order_id` = ?");
 
+$stmt->execute(array($orderid));
 $count = $stmt->rowCount();
+
 if($count > 0){
     echo json_encode(array("status"=>"success"));
 }else{
