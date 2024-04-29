@@ -22,21 +22,35 @@ class _ProfileState extends State<Profile> {
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
 
+  Crud crud = Crud();
   Future getImage() async {
-    final image = await _picker.pickImage(source: ImageSource.gallery);
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         selectedImage = File(image.path);
       });
+
+      var response = await crud.postRequestFile(
+          linkImageUplaod,
+          {
+            "id": sharedPref.getString("id").toString(),
+          },
+          selectedImage!);
+
+      if (response["status"] == "success") {
+        sharedPref.setString("profile_pic_name", response['0']);
+        print(selectedImage);
+      } else {
+        print("fail");
+      }
     }
   }
-
-  Crud crud = Crud();
 
   DeleteAccount() async {
     var response = await crud.postRequest(linkUserDelete, {
       "id": sharedPref.getString("id").toString(),
     });
+
     if (response["status"] == "success") {
       Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -92,7 +106,9 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: getImage,
+                  onTap: () async {
+                    await getImage();
+                  },
                   child: selectedImage == null
                       ? Container(
                           margin: EdgeInsets.only(
@@ -146,8 +162,8 @@ class _ProfileState extends State<Profile> {
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60.0),
-                                child: Image.file(
-                                  selectedImage!,
+                                child: Image.network(
+                                  "$linkImageRoot/${sharedPref.getString("profile_pic_name")}",
                                   fit: BoxFit.cover,
                                 ),
                               ),

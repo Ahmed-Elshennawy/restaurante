@@ -1,14 +1,12 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header("Access-Control-Allow-Headers: X-Requested-With");
 
 include '../config/db.php';
 
 $username = filterReq("username");
 $email = filterReq("email");
 $password = filterReq("password");
+$password = password_hash($password, PASSWORD_DEFAULT);
 
 $stmt = $con->prepare('INSERT INTO `users` (`username`, `email`, `password`, `wallet_palance`) VALUES (? , ? , ?, 0)');
 $stmt->execute(array($username,$email,$password));

@@ -1,14 +1,10 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header("Access-Control-Allow-Headers: X-Requested-With");
-
 include '../config/db.php';
 
 $userid = filterReq("id");
 
-$stmt = $con->prepare("SELECT * FROM orders WHERE `order_user` = ?");
+$stmt = $con->prepare("SELECT * FROM orders WHERE `order_user_id` = ?");
 $stmt->execute(array($userid));
 
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);

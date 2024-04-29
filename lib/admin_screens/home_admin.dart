@@ -1,3 +1,5 @@
+
+import 'package:restaurante/user_screens/navigation.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -74,6 +76,61 @@ class _HomeAdminState extends State<HomeAdmin> {
                               color: Colors.white,
                               fontSize: 24.0,
                               fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Navigation()));
+                },
+                child: Material(
+                  borderRadius: BorderRadius.circular(10.0),
+                  elevation: 5.0,
+                  shadowColor:
+                      themeState.getDarkTheme ? Colors.white : Colors.black,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                      horizontal: 10.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color:
+                          themeState.getDarkTheme ? Colors.black : Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.delete,
+                          color: themeState.getDarkTheme
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                        const SizedBox(width: 20.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Orders Page',
+                              style: TextStyle(
+                                color: themeState.getDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

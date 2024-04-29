@@ -67,7 +67,7 @@ class DummyData {
           'https://cdn.pixabay.com/photo/2017/05/29/20/03/chocolate-2354710_640.jpg',
       'name': 'Chocolate',
       'detail': 'Rich chocolate.',
-      'price': '4.50',
+      'price': '4',
       'time': '12 mins',
     },
     {
@@ -75,7 +75,7 @@ class DummyData {
           'https://cdn.pixabay.com/photo/2016/04/25/07/03/weapon-1351308_640.jpg',
       'name': 'Strawberry',
       'detail': 'Fresh strawberry.',
-      'price': '4.25',
+      'price': '4',
       'time': '11 mins',
     },
   ];
@@ -94,7 +94,7 @@ class DummyData {
           'https://cdn.pixabay.com/photo/2021/01/10/04/37/salad-5904093_1280.jpg',
       'name': 'Greek Salad',
       'detail': 'Healthy Greek.',
-      'price': '7.50',
+      'price': '7',
       'time': '16 mins',
     },
     {
@@ -102,7 +102,7 @@ class DummyData {
           'https://cdn.pixabay.com/photo/2023/09/25/07/55/salad-8274421_640.jpg',
       'name': 'Cobb Salad',
       'detail': 'Hearty Cobb.',
-      'price': '8.25',
+      'price': '8',
       'time': '18 mins',
     },
   ];

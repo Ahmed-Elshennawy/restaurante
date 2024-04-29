@@ -1,3 +1,5 @@
+import 'package:restaurante/ApiFiles/apiLink.dart';
+import 'package:restaurante/ApiFiles/crud.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,11 +23,36 @@ class _AddFoodState extends State<AddFood> {
   TextEditingController detailcontroller = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
+  var image;
+  Crud crud = Crud();
 
   Future getImage() async {
-    var image = await _picker.pickImage(source: ImageSource.gallery);
+    image = await _picker.pickImage(source: ImageSource.gallery);
     selectedImage = File(image!.path);
     setState(() {});
+  }
+
+  addItem() async {
+    if (image != null) {
+      setState(() {
+        selectedImage = File(image.path);
+      });
+      var response = await crud.postRequestFile(
+          linkitemAdd,
+          {
+            "item_name": namecontroller.text,
+            "item_price": pricecontroller.text,
+            "item_detail": detailcontroller.text,
+            "item_category": items.indexOf(value!)+1,
+          },
+          selectedImage!);
+
+      if (response["status"] == "success") {
+        print("success");
+      } else {
+        print("fail");
+      }
+    }
   }
 
   @override
@@ -260,27 +287,32 @@ class _AddFoodState extends State<AddFood> {
               ),
               const SizedBox(height: 30.0),
               Center(
-                child: Material(
-                  elevation: 150,
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0),
-                    width: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(
-                          color: themeState.getDarkTheme
-                              ? Colors.white
-                              : Colors.black,
-                        )),
-                    child: const Center(
-                      child: Text(
-                        'Add',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.bold),
+                child: GestureDetector(
+                  onTap: () async {
+                    await addItem();
+                  },
+                  child: Material(
+                    elevation: 150,
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 6.0),
+                      width: 150,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(
+                            color: themeState.getDarkTheme
+                                ? Colors.white
+                                : Colors.black,
+                          )),
+                      child: const Center(
+                        child: Text(
+                          'Add',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),

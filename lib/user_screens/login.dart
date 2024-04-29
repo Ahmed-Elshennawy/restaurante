@@ -3,6 +3,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:restaurante/ApiFiles/apiLink.dart';
 import 'package:restaurante/ApiFiles/crud.dart';
+import 'package:restaurante/admin_screens/admin_login.dart';
 import 'package:restaurante/components/custometextForm.dart';
 import 'package:restaurante/components/valid.dart';
 import 'package:restaurante/main.dart';
@@ -48,6 +49,8 @@ class _LoginState extends State<Login> {
         sharedPref.setString("email", response['data']['email']);
         sharedPref.setString(
             "wallet_palance", response['data']['wallet_palance'].toString());
+        sharedPref.setString(
+            "profile_pic_name", response['data']['profile_pic_name']);
 
         Navigator.of(context)
             .pushNamedAndRemoveUntil("navigation", (route) => false);
@@ -257,6 +260,22 @@ class _LoginState extends State<Login> {
                                         builder: (context) => const SignUp()));
                               },
                               child: Text('Don\'t have an account? Sign up',
+                                  style: themeState.getDarkTheme
+                                      ? AppWidget.platesDark()
+                                      : AppWidget.platesLight()),
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height / 28),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const AdminLogin()));
+                              },
+                              child: Text('Login As admin',
                                   style: themeState.getDarkTheme
                                       ? AppWidget.platesDark()
                                       : AppWidget.platesLight()),
