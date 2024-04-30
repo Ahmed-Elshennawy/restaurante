@@ -43,12 +43,13 @@ class _AddFoodState extends State<AddFood> {
             "item_name": namecontroller.text,
             "item_price": pricecontroller.text,
             "item_detail": detailcontroller.text,
-            "item_category": items.indexOf(value!)+1,
+            "item_category": (items.indexOf(value!) + 1).toString(),
           },
           selectedImage!);
 
       if (response["status"] == "success") {
         print("success");
+        Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
       } else {
         print("fail");
       }

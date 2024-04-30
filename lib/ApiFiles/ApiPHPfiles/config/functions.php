@@ -16,7 +16,6 @@ function imageUpload($imageRequest){
 
    $strToArray = explode(".", $imagename);
    $ext = strtolower(end($strToArray));
-
    if(!empty($imagename) && !in_array($ext, $allowExt)){
       $Error[] = "Ext";
    }

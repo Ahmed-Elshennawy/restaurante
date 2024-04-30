@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurante/ApiFiles/apiLink.dart';
 import 'package:restaurante/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import '../ApiFiles/crud.dart';
 import '../widgets/dark_theme_provider.dart';
@@ -23,7 +24,7 @@ class _ProfileState extends State<Profile> {
   File? selectedImage;
 
   Crud crud = Crud();
-  Future getImage() async {
+  Future uploadImage() async {
     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
@@ -38,11 +39,28 @@ class _ProfileState extends State<Profile> {
           selectedImage!);
 
       if (response["status"] == "success") {
-        sharedPref.setString("profile_pic_name", response['0']);
-        print(selectedImage);
+        // Save the image path to shared preferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('selectedImagePath', selectedImage!.path);
       } else {
         print("fail");
       }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadSavedImage();
+  }
+
+  void loadSavedImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? imagePath = prefs.getString('selectedImagePath');
+    if (imagePath != null) {
+      setState(() {
+        selectedImage = File(imagePath);
+      });
     }
   }
 
@@ -107,7 +125,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    await getImage();
+                    await uploadImage();
                   },
                   child: selectedImage == null
                       ? Container(
@@ -162,8 +180,8 @@ class _ProfileState extends State<Profile> {
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60.0),
-                                child: Image.network(
-                                  "$linkImageRoot/${sharedPref.getString("profile_pic_name")}",
+                                child: Image.file(
+                                  selectedImage!,
                                   fit: BoxFit.cover,
                                 ),
                               ),

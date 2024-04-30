@@ -178,6 +178,19 @@ class _WalletState extends State<Wallet> {
                     int amountToAdd = int.tryParse(amountController.text) ?? 0;
                     Provider.of<WalletProvider>(context, listen: false)
                         .addToWallet(amountToAdd);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(milliseconds: 1000),
+                        content: Text(
+                          'Money added Successfully',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0),
+                        ),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
                   },
                   child: Container(
                     width: 100.0,

@@ -1,4 +1,5 @@
 import 'package:restaurante/user_screens/home.dart';
+import 'package:restaurante/admin_screens/home_admin.dart';
 import 'package:restaurante/user_screens/navigation.dart';
 import 'package:restaurante/user_screens/login.dart';
 import 'package:restaurante/user_screens/signup.dart';
@@ -52,13 +53,15 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Restaurante',
-            initialRoute: sharedPref.getString("id") == null ? "login" : "navigation",
+            initialRoute:
+                sharedPref.getString("id") == null ? "login" : "home_admin",
             routes: {
               'login': (context) => const Login(),
               'navigation': (context) => const Navigation(),
               'onboard': (context) => const Onboard(),
               'signup': (context) => const SignUp(),
               'home': (context) => const Home(),
+              'home_admin': (context) => const HomeAdmin(),
             },
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
             home: const Onboard(),

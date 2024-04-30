@@ -2,10 +2,11 @@
 
 include '../config/db.php';
 
+$id = filterReq("id");
+$stmt = $con->prepare("SELECT * FROM users where id = $id");
+$stmt->execute(array($id));
 
-$stmt = $con->prepare("SELECT * FROM items");
-$stmt->execute();
-$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
 $count = $stmt->rowCount();
 if($count > 0){
     echo json_encode(array("status"=>"success", "data" => $data));
