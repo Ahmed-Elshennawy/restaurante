@@ -80,6 +80,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
+    print(sharedPref.getString("profile_pic_name"));
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -109,7 +110,7 @@ class _ProfileState extends State<Profile> {
                   onTap: () async {
                     await uploadImage();
                   },
-                  child: sharedPref.getString("profile_pic_name") == null
+                  child: sharedPref.getString("profile_pic_name") == ""
                       ? Container(
                           margin: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height / 4.5,
@@ -362,8 +363,8 @@ class _ProfileState extends State<Profile> {
               margin: const EdgeInsets.symmetric(horizontal: 20.0),
               child: GestureDetector(
                 onTap: () async {
-                  sharedPref.clear();
                   await DeleteAccount();
+                  sharedPref.clear();
                 },
                 child: Material(
                   borderRadius: BorderRadius.circular(10.0),
