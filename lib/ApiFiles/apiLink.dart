@@ -23,5 +23,6 @@ const String linkEditWallet = "$linkServerName/Wallet/edit.php";
 // profilePics
 
 const String linkImageUplaod = "$linkServerName/profile/pfpUpload.php";
+const String linkImageDelete = "$linkServerName/profile/pfpDelete.php";
 const String linkImageView = "$linkServerName/profile/pfpView.php";
 

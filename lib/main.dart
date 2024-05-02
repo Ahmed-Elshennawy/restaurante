@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Restaurante',
             initialRoute:
-                sharedPref.getString("id") == null ? "login" : "home_admin",
+                sharedPref.getString("id")  == null ? "login" : "navigation",
             routes: {
               'login': (context) => const Login(),
               'navigation': (context) => const Navigation(),

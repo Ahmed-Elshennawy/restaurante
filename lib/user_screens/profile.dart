@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurante/ApiFiles/apiLink.dart';
 import 'package:restaurante/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import '../ApiFiles/crud.dart';
 import '../widgets/dark_theme_provider.dart';
@@ -21,46 +21,29 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   String? profile, name, email;
   final ImagePicker _picker = ImagePicker();
-  File? selectedImage;
+  File? myFile;
 
+  bool? isLoading = false;
   Crud crud = Crud();
   Future uploadImage() async {
-    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        selectedImage = File(image.path);
-      });
+    XFile? xfile = await _picker.pickImage(source: ImageSource.gallery);
+    myFile = File(xfile!.path);
 
-      var response = await crud.postRequestFile(
-          linkImageUplaod,
-          {
-            "id": sharedPref.getString("id").toString(),
-          },
-          selectedImage!);
+    isLoading = true;
+    setState(() {});
+    var response = await crud.postRequestFile(
+        linkImageUplaod,
+        {
+          "id": sharedPref.getString("id").toString(),
+        },
+        myFile!);
 
-      if (response["status"] == "success") {
-        // Save the image path to shared preferences
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString('selectedImagePath', selectedImage!.path);
-      } else {
-        print("fail");
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    loadSavedImage();
-  }
-
-  void loadSavedImage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? imagePath = prefs.getString('selectedImagePath');
-    if (imagePath != null) {
-      setState(() {
-        selectedImage = File(imagePath);
-      });
+    isLoading = false;
+    setState(() {});
+    if (response["status"] == "success") {
+      sharedPref.setString("profile_pic_name", response['0']);
+    } else {
+      print("fail");
     }
   }
 
@@ -97,7 +80,6 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -127,7 +109,7 @@ class _ProfileState extends State<Profile> {
                   onTap: () async {
                     await uploadImage();
                   },
-                  child: selectedImage == null
+                  child: sharedPref.getString("profile_pic_name") == null
                       ? Container(
                           margin: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height / 4.5,
@@ -180,8 +162,8 @@ class _ProfileState extends State<Profile> {
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60.0),
-                                child: Image.file(
-                                  selectedImage!,
+                                child: Image.network(
+                                  "$linkImageRoot/${sharedPref.getString("profile_pic_name")}",
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -323,48 +305,54 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             const SizedBox(height: 20.0),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Material(
-                borderRadius: BorderRadius.circular(10.0),
-                elevation: 5.0,
-                shadowColor:
-                    themeState.getDarkTheme ? Colors.white : Colors.black,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 10.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color:
-                        themeState.getDarkTheme ? Colors.black : Colors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.description,
-                        color: themeState.getDarkTheme
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                      const SizedBox(width: 20.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Terms and Conditions',
-                            style: TextStyle(
-                              color: themeState.getDarkTheme
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w600,
+            GestureDetector(
+              onTap: () async {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil("navigation", (route) => false);
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Material(
+                  borderRadius: BorderRadius.circular(10.0),
+                  elevation: 5.0,
+                  shadowColor:
+                      themeState.getDarkTheme ? Colors.white : Colors.black,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                      horizontal: 10.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color:
+                          themeState.getDarkTheme ? Colors.black : Colors.white,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.description,
+                          color: themeState.getDarkTheme
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                        const SizedBox(width: 20.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Terms and Conditions',
+                              style: TextStyle(
+                                color: themeState.getDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -374,6 +362,7 @@ class _ProfileState extends State<Profile> {
               margin: const EdgeInsets.symmetric(horizontal: 20.0),
               child: GestureDetector(
                 onTap: () async {
+                  sharedPref.clear();
                   await DeleteAccount();
                 },
                 child: Material(
