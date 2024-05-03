@@ -26,7 +26,7 @@ class _AdminLoginState extends State<AdminLogin> {
       isLoading = true;
       setState(() {});
 
-      var response = await crud.postRequest(linklogin, {
+      var response = await crud.postRequest(linkAdminlogin, {
         "email": usernamecotroller.text,
         "password": passwordcotroller.text,
       });

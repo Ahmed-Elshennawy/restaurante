@@ -1,5 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -78,7 +80,6 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
-    print(sharedPref.getString("profile_pic_name"));
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -305,7 +306,10 @@ class _ProfileState extends State<Profile> {
             ),
             const SizedBox(height: 20.0),
             GestureDetector(
-              onTap: () {},
+              onTap: () async {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil("navigation", (route) => false);
+              },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Material(
@@ -354,6 +358,72 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             const SizedBox(height: 20.0),
+            GestureDetector(
+              onTap: () async {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil("home_admin", (route) => false);
+              },
+              child: sharedPref.getString("email") == "admin@gmail.com"
+                  ? Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Material(
+                            borderRadius: BorderRadius.circular(10.0),
+                            elevation: 5.0,
+                            shadowColor: themeState.getDarkTheme
+                                ? Colors.white
+                                : Colors.black,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15.0,
+                                horizontal: 10.0,
+                              ),
+                              decoration: BoxDecoration(
+                                color: themeState.getDarkTheme
+                                    ? Colors.black
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.admin_panel_settings,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                  const SizedBox(width: 20.0),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Admin Page',
+                                        style: TextStyle(
+                                          color: themeState.getDarkTheme
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        )
+                      ],
+                    )
+                  : SizedBox(
+                      height: 0,
+                    ),
+            ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20.0),
               child: GestureDetector(

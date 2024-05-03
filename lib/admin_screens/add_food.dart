@@ -45,13 +45,14 @@ class _AddFoodState extends State<AddFood> {
             "item_price": pricecontroller.text,
             "item_detail": detailcontroller.text,
             "item_category": (items.indexOf(value!) + 1).toString(),
-            "item_item": timecontroller.text,
+            "item_time": timecontroller.text,
           },
           selectedImage!);
 
       if (response["status"] == "success") {
         print("success");
-        Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil("navigation", (route) => false);
       } else {
         print("fail");
       }
@@ -322,7 +323,9 @@ class _AddFoodState extends State<AddFood> {
               const SizedBox(height: 30.0),
               Center(
                 child: GestureDetector(
-                  onTap: addItem,
+                  onTap: () async {
+                    await addItem();
+                  },
                   child: Material(
                     elevation: 150,
                     borderRadius: BorderRadius.circular(10.0),

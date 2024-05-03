@@ -51,7 +51,6 @@ class _LoginState extends State<Login> {
             "wallet_palance", response['data']['wallet_palance'].toString());
         sharedPref.setString(
             "profile_pic_name", response['data']['profile_pic_name']);
-        // sharedPref.setString("theme", response['data']['theme']);
 
         
         Navigator.of(context)

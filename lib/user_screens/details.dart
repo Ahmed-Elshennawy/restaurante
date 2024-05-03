@@ -6,15 +6,19 @@ import '../widgets/dark_theme_provider.dart';
 
 class CartItem {
   final String name;
+  final String detail;
   final double price;
   final int quantity;
   final String image;
+  final String time;
 
   CartItem({
     required this.name,
+    required this.detail,
     required this.price,
     required this.quantity,
     required this.image,
+    required this.time,
   });
 }
 
@@ -184,11 +188,14 @@ class _DetailsState extends State<Details> {
                     onTap: () {
                       CartItem item = CartItem(
                         name: widget.name,
+                        detail: widget.detail,
                         image: widget.image,
                         price: double.parse(widget.price),
                         quantity: itemNumbers,
+                        time: widget.time,
                       );
                       cart.add(item);
+                      // addOrder(cart);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           duration: Duration(milliseconds: 800),
