@@ -14,12 +14,12 @@ class Crud {
         print("error : ${response.statusCode}");
       }
     } catch (e) {
-      print("catched error : ${e}");
+      print("catched error : $e");
     }
   }
 
   postRequest(String url, Map data) async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     try {
       var response = await http.post(Uri.parse(url), body: data);
       if (response.statusCode == 200) {
@@ -29,7 +29,7 @@ class Crud {
         print("error : ${response.statusCode}");
       }
     } catch (e) {
-      print("catched error : ${e}");
+      print("catched error : $e");
     }
   }
 

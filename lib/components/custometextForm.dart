@@ -24,8 +24,8 @@ class CustTextFormSign extends StatelessWidget {
     return TextFormField(
       controller: controller,
       style: themeState.getDarkTheme
-          ? TextStyle(color: Colors.white)
-          : TextStyle(color: Colors.black),
+          ? const TextStyle(color: Colors.white)
+          : const TextStyle(color: Colors.black),
       validator: valid,
       obscureText: secureText,
       decoration: InputDecoration(

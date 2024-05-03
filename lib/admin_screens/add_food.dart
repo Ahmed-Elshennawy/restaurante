@@ -21,6 +21,7 @@ class _AddFoodState extends State<AddFood> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController pricecontroller = TextEditingController();
   TextEditingController detailcontroller = TextEditingController();
+  TextEditingController timecontroller = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
   var image;
@@ -44,6 +45,7 @@ class _AddFoodState extends State<AddFood> {
             "item_price": pricecontroller.text,
             "item_detail": detailcontroller.text,
             "item_category": (items.indexOf(value!) + 1).toString(),
+            "item_item": timecontroller.text,
           },
           selectedImage!);
 
@@ -194,10 +196,41 @@ class _AddFoodState extends State<AddFood> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: TextField(
-                    controller: pricecontroller,
+                    controller: timecontroller,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter Item Price',
+                      hintStyle: themeState.getDarkTheme
+                          ? AppWidget.infoDark()
+                          : AppWidget.infoLight(),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30.0),
+              Text('Item Time',
+                  style: themeState.getDarkTheme
+                      ? AppWidget.platesDark()
+                      : AppWidget.platesLight()),
+              const SizedBox(height: 10.0),
+              Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(10.0),
+                shadowColor:
+                    themeState.getDarkTheme ? Colors.white : Colors.black,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color:
+                        themeState.getDarkTheme ? Colors.black : Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: TextField(
+                    controller: pricecontroller,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Enter Item Time',
                       hintStyle: themeState.getDarkTheme
                           ? AppWidget.infoDark()
                           : AppWidget.infoLight(),
@@ -289,9 +322,7 @@ class _AddFoodState extends State<AddFood> {
               const SizedBox(height: 30.0),
               Center(
                 child: GestureDetector(
-                  onTap: () async {
-                    await addItem();
-                  },
+                  onTap: addItem,
                   child: Material(
                     elevation: 150,
                     borderRadius: BorderRadius.circular(10.0),

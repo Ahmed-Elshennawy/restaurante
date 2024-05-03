@@ -15,6 +15,7 @@ const String linkorderView = "$linkServerName/orders/view.php";
 
 const String linkitemAdd = "$linkServerName/items/add.php";
 const String linkitemView = "$linkServerName/items/view.php";
+const String linkImageItemRoot = "http://10.0.2.2/ApiPHPfiles/items/upload";
 
 // wallet
 

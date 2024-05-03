@@ -1,7 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -307,10 +305,7 @@ class _ProfileState extends State<Profile> {
             ),
             const SizedBox(height: 20.0),
             GestureDetector(
-              onTap: () async {
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil("navigation", (route) => false);
-              },
+              onTap: () {},
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Material(

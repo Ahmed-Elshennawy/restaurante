@@ -1,6 +1,8 @@
+import 'package:restaurante/ApiFiles/apiLink.dart';
 import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../ApiFiles/crud.dart';
 import '../widgets/dummy_data.dart';
 import '../widgets/reused.dart';
 import 'details.dart';
@@ -15,26 +17,44 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool burger = false, pizza = false, ice = false, salad = false;
   String? selectedCategory;
+  List<dynamic> selectedList = [];
+  List<dynamic> selectedList2 = [];
+  Crud crud = Crud();
+
+  @override
+  void initState() {
+    super.initState();
+    getItem();
+  }
+
+  getItem() async {
+    var response = await crud.getRequest(linkitemView);
+    if (response['status'] == 'success') {
+      setState(() {
+        selectedList = response['data'];
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> selectedList = [];
     final themeState = Provider.of<DarkThemeProvider>(context);
 
     switch (selectedCategory) {
       case 'burger':
-        selectedList = DummyData.burgerList;
+        selectedList2 = DummyData.burgerList;
         break;
       case 'ice':
-        selectedList = DummyData.iceList;
+        selectedList2 = DummyData.iceList;
         break;
       case 'salad':
-        selectedList = DummyData.saladList;
+        selectedList2 = DummyData.saladList;
         break;
       default:
-        selectedList = DummyData.pizzaList;
+        selectedList2 = DummyData.pizzaList;
         break;
     }
+
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
@@ -224,7 +244,7 @@ class _HomeState extends State<Home> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: selectedList.map(
+                  children: selectedList2.map(
                     (item) {
                       return GestureDetector(
                         onTap: () {
@@ -283,329 +303,87 @@ class _HomeState extends State<Home> {
                 ),
               ),
               const SizedBox(height: 15.0),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
+              ListView.builder(
+                itemCount: selectedList.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final item = selectedList[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
                           builder: (context) => Details(
-                                image: DummyData.saladList[0]['image'],
-                                name: DummyData.saladList[0]['name'],
-                                detail: DummyData.saladList[0]['detail'],
-                                price: DummyData.saladList[0]['price'],
-                                time: DummyData.saladList[0]['time'],
-                              )));
-                },
-                child: Material(
-                  elevation: 6,
-                  shadowColor:
-                      themeState.getDarkTheme ? Colors.white : Colors.black,
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    margin: const EdgeInsets.all(5),
-                    child: Stack(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                            image: "$linkImageItemRoot/${item["item_image"]}",
+                            name: item['item_name'],
+                            detail: item['item_detail'],
+                            price: item['item_price'].toString(),
+                            time: item['item_time'].toString(),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Material(
+                      elevation: 6,
+                      shadowColor:
+                          themeState.getDarkTheme ? Colors.white : Colors.black,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(5),
+                        child: Stack(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                  DummyData.saladList[0]['image'],
-                                  height: 105.0,
-                                  width: 105.0,
-                                  fit: BoxFit.cover),
-                            ),
-                            const SizedBox(width: 15.0),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    DummyData.saladList[0]['name'],
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.network(
+                                    "$linkImageItemRoot/${item["item_image"]}",
+                                    height: 105.0,
+                                    width: 105.0,
+                                    fit: BoxFit.cover,
                                   ),
-                                  Text(
-                                    DummyData.saladList[0]['detail'],
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.infoDark()
-                                        : AppWidget.infoLight(),
+                                ),
+                                const SizedBox(width: 15.0),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item['item_name'],
+                                        style: themeState.getDarkTheme
+                                            ? AppWidget.platesDark()
+                                            : AppWidget.platesLight(),
+                                      ),
+                                      Text(
+                                        item['item_detail'],
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: themeState.getDarkTheme
+                                            ? AppWidget.infoDark()
+                                            : AppWidget.infoLight(),
+                                      ),
+                                      Text(
+                                        item['item_price'].toString(),
+                                        style: themeState.getDarkTheme
+                                            ? AppWidget.platesDark()
+                                            : AppWidget.platesLight(),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    DummyData.saladList[0]['price'],
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15.0),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Details(
-                                image: DummyData
-                                        .pizzaList[DummyData.iceList.length - 1]
-                                    ['image'],
-                                name: DummyData
-                                        .pizzaList[DummyData.iceList.length - 1]
-                                    ['name'],
-                                detail: DummyData
-                                        .pizzaList[DummyData.iceList.length - 1]
-                                    ['detail'],
-                                price: DummyData
-                                        .pizzaList[DummyData.iceList.length - 1]
-                                    ['price'],
-                                time: DummyData
-                                        .pizzaList[DummyData.iceList.length - 1]
-                                    ['time'],
-                              )));
+                  );
                 },
-                child: Material(
-                  elevation: 6,
-                  shadowColor:
-                      themeState.getDarkTheme ? Colors.white : Colors.black,
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    margin: const EdgeInsets.all(5),
-                    child: Stack(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                  DummyData.pizzaList[
-                                      DummyData.iceList.length - 1]['image'],
-                                  height: 105.0,
-                                  width: 105.0,
-                                  fit: BoxFit.cover),
-                            ),
-                            const SizedBox(width: 15.0),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    DummyData.pizzaList[
-                                        DummyData.iceList.length - 1]['name'],
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
-                                  ),
-                                  Text(
-                                    DummyData.pizzaList[
-                                        DummyData.iceList.length - 1]['detail'],
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
-                                  ),
-                                  Text(
-                                    DummyData.pizzaList[
-                                        DummyData.iceList.length - 1]['price'],
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15.0),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Details(
-                                image: DummyData.burgerList[
-                                    DummyData.burgerList.length - 1]['image'],
-                                name: DummyData.burgerList[
-                                    DummyData.burgerList.length - 1]['name'],
-                                detail: DummyData.burgerList[
-                                    DummyData.burgerList.length - 1]['detail'],
-                                price: DummyData.burgerList[
-                                    DummyData.burgerList.length - 1]['price'],
-                                time: DummyData.burgerList[
-                                    DummyData.burgerList.length - 1]['time'],
-                              )));
-                },
-                child: Material(
-                  elevation: 6,
-                  shadowColor:
-                      themeState.getDarkTheme ? Colors.white : Colors.black,
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    margin: const EdgeInsets.all(5),
-                    child: Stack(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                  DummyData.burgerList[
-                                      DummyData.burgerList.length - 1]['image'],
-                                  height: 105.0,
-                                  width: 105.0,
-                                  fit: BoxFit.cover),
-                            ),
-                            const SizedBox(width: 15.0),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    DummyData.burgerList[
-                                            DummyData.burgerList.length - 1]
-                                        ['name'],
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
-                                  ),
-                                  Text(
-                                    DummyData.burgerList[
-                                            DummyData.burgerList.length - 1]
-                                        ['detail'],
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.infoDark()
-                                        : AppWidget.infoLight(),
-                                  ),
-                                  Text(
-                                    DummyData.burgerList[
-                                            DummyData.burgerList.length - 1]
-                                        ['price'],
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15.0),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Details(
-                                image: DummyData
-                                        .iceList[DummyData.iceList.length - 1]
-                                    ['image'],
-                                name: DummyData
-                                        .iceList[DummyData.iceList.length - 1]
-                                    ['name'],
-                                detail: DummyData
-                                        .iceList[DummyData.iceList.length - 1]
-                                    ['detail'],
-                                price: DummyData
-                                        .iceList[DummyData.iceList.length - 1]
-                                    ['price'],
-                                time: DummyData
-                                        .iceList[DummyData.iceList.length - 1]
-                                    ['time'],
-                              )));
-                },
-                child: Material(
-                  elevation: 6,
-                  shadowColor:
-                      themeState.getDarkTheme ? Colors.white : Colors.black,
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    margin: const EdgeInsets.all(5),
-                    child: Stack(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                  DummyData
-                                          .iceList[DummyData.iceList.length - 1]
-                                      ['image'],
-                                  height: 105.0,
-                                  width: 105.0,
-                                  fit: BoxFit.cover),
-                            ),
-                            const SizedBox(width: 15.0),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    DummyData.iceList[
-                                        DummyData.iceList.length - 1]['name'],
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
-                                  ),
-                                  Text(
-                                    DummyData.iceList[
-                                        DummyData.iceList.length - 1]['detail'],
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.infoDark()
-                                        : AppWidget.infoLight(),
-                                  ),
-                                  Text(
-                                    DummyData.iceList[
-                                        DummyData.iceList.length - 1]['price'],
-                                    style: themeState.getDarkTheme
-                                        ? AppWidget.platesDark()
-                                        : AppWidget.platesLight(),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ),
               const SizedBox(height: 15.0),
             ],

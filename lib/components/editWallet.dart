@@ -4,12 +4,12 @@ import 'package:restaurante/main.dart';
 
 Crud crud = Crud();
 
-editWallet(int _amount) async {
+editWallet(int amount) async {
   var response = await crud.postRequest(linkEditWallet,
-      {"wallet_palance": _amount.toString(), "id": sharedPref.getString("id")});
+      {"wallet_palance": amount.toString(), "id": sharedPref.getString("id")});
 
   if (response["status"] == "success") {
-    sharedPref.setString("wallet_palance", _amount.toString());
+    sharedPref.setString("wallet_palance", amount.toString());
 
     print("success");
   } else {
