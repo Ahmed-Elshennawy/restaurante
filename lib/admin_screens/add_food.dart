@@ -167,6 +167,10 @@ class _AddFoodState extends State<AddFood> {
                   ),
                   child: TextField(
                     controller: namecontroller,
+                    style: TextStyle(
+                      color:
+                          themeState.getDarkTheme ? Colors.white : Colors.black,
+                    ),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter Item Name',
@@ -198,6 +202,10 @@ class _AddFoodState extends State<AddFood> {
                   ),
                   child: TextField(
                     controller: timecontroller,
+                    style: TextStyle(
+                      color:
+                          themeState.getDarkTheme ? Colors.white : Colors.black,
+                    ),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter Item Price',
@@ -229,6 +237,10 @@ class _AddFoodState extends State<AddFood> {
                   ),
                   child: TextField(
                     controller: pricecontroller,
+                    style: TextStyle(
+                      color:
+                          themeState.getDarkTheme ? Colors.white : Colors.black,
+                    ),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter Item Time',
@@ -261,6 +273,10 @@ class _AddFoodState extends State<AddFood> {
                   child: TextField(
                     maxLines: 6,
                     controller: detailcontroller,
+                    style: TextStyle(
+                      color:
+                          themeState.getDarkTheme ? Colors.white : Colors.black,
+                    ),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter Item Detail',
@@ -297,9 +313,11 @@ class _AddFoodState extends State<AddFood> {
                               value: item,
                               child: Text(
                                 item,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 18.0,
-                                    color: Colors.black,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white
+                                        : Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -308,12 +326,15 @@ class _AddFoodState extends State<AddFood> {
                       onChanged: (value) => setState(() {
                         this.value = value;
                       }),
-                      dropdownColor: Colors.white,
+                      dropdownColor:
+                          themeState.getDarkTheme ? Colors.black : Colors.white,
                       hint: const Text('Select Category'),
                       iconSize: 36,
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.arrow_drop_down,
-                        color: Colors.black,
+                        color: themeState.getDarkTheme
+                            ? Colors.white
+                            : Colors.black,
                       ),
                       value: value,
                     ),

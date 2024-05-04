@@ -52,7 +52,6 @@ class _LoginState extends State<Login> {
         sharedPref.setString(
             "profile_pic_name", response['data']['profile_pic_name']);
 
-        
         Navigator.of(context)
             .pushNamedAndRemoveUntil("navigation", (route) => false);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -169,6 +168,7 @@ class _LoginState extends State<Login> {
                                         valid: (value) {
                                           return validMail(value!, 3, 50);
                                         },
+                                        prefix: Icons.email,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
@@ -182,6 +182,7 @@ class _LoginState extends State<Login> {
                                         valid: (value) {
                                           return validInput(value!, 3, 50);
                                         },
+                                        prefix: Icons.password,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)

@@ -159,6 +159,7 @@ class _SignUpState extends State<SignUp> {
                                         valid: (value) {
                                           return validInput(value!, 3, 50);
                                         },
+                                        prefix: Icons.person,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
@@ -171,6 +172,7 @@ class _SignUpState extends State<SignUp> {
                                         valid: (value) {
                                           return validMail(value!, 3, 50);
                                         },
+                                        prefix: Icons.email,
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
@@ -184,6 +186,8 @@ class _SignUpState extends State<SignUp> {
                                         valid: (value) {
                                           return validInput(value!, 3, 50);
                                         },
+                                        prefix: Icons.password,
+                                        
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)

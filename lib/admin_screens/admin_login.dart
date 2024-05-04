@@ -169,6 +169,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                 child: Center(
                                   child: TextFormField(
                                     controller: passwordcotroller,
+                                    obscureText: true,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Please Enter The Password';

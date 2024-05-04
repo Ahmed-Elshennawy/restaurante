@@ -8,6 +8,8 @@ class CustTextFormSign extends StatelessWidget {
   final String? Function(String?) valid;
   final TextEditingController controller;
   final bool secureText;
+  final IconData prefix;
+
 
   const CustTextFormSign({
     super.key,
@@ -15,6 +17,7 @@ class CustTextFormSign extends StatelessWidget {
     required this.controller,
     required this.valid,
     this.secureText = false,
+    required this.prefix,
   });
 
   @override
@@ -34,7 +37,7 @@ class CustTextFormSign extends StatelessWidget {
             ? AppWidget.platesDark()
             : AppWidget.platesLight(),
         prefixIcon: Icon(
-          Icons.password_outlined,
+          prefix,
           color: themeState.getDarkTheme ? Colors.white : Colors.black,
         ),
       ),
