@@ -302,7 +302,6 @@ class _HomeState extends State<Home> {
                   ).toList(),
                 ),
               ),
-              const SizedBox(height: 15.0),
               ListView.builder(
                 itemCount: selectedList.length,
                 shrinkWrap: true,
@@ -324,63 +323,70 @@ class _HomeState extends State<Home> {
                         ),
                       );
                     },
-                    child: Material(
-                      elevation: 6,
-                      shadowColor:
-                          themeState.getDarkTheme ? Colors.white : Colors.black,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        margin: const EdgeInsets.all(5),
-                        child: Stack(
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Column(
+                      children: [
+                        Material(
+                          elevation: 6,
+                          shadowColor: themeState.getDarkTheme
+                              ? Colors.white
+                              : Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            padding: const EdgeInsets.all(5),
+                            margin: const EdgeInsets.all(5),
+                            child: Stack(
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    "$linkImageItemRoot/${item["item_image"]}",
-                                    height: 105.0,
-                                    width: 105.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                const SizedBox(width: 15.0),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item['item_name'],
-                                        style: themeState.getDarkTheme
-                                            ? AppWidget.platesDark()
-                                            : AppWidget.platesLight(),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.network(
+                                        "$linkImageItemRoot/${item["item_image"]}",
+                                        height: 105.0,
+                                        width: 105.0,
+                                        fit: BoxFit.cover,
                                       ),
-                                      Text(
-                                        item['item_detail'],
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: themeState.getDarkTheme
-                                            ? AppWidget.infoDark()
-                                            : AppWidget.infoLight(),
+                                    ),
+                                    const SizedBox(width: 15.0),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item['item_name'],
+                                            style: themeState.getDarkTheme
+                                                ? AppWidget.platesDark()
+                                                : AppWidget.platesLight(),
+                                          ),
+                                          Text(
+                                            item['item_detail'],
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: themeState.getDarkTheme
+                                                ? AppWidget.infoDark()
+                                                : AppWidget.infoLight(),
+                                          ),
+                                          Text(
+                                            item['item_price'].toString(),
+                                            style: themeState.getDarkTheme
+                                                ? AppWidget.platesDark()
+                                                : AppWidget.platesLight(),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        item['item_price'].toString(),
-                                        style: themeState.getDarkTheme
-                                            ? AppWidget.platesDark()
-                                            : AppWidget.platesLight(),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 20),
+                      ],
                     ),
                   );
                 },
