@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:restaurante/ApiFiles/api_link.dart';
 import 'package:restaurante/ApiFiles/crud.dart';
 import 'package:restaurante/main.dart';
+import 'package:restaurante/user_screens/login.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
 
@@ -84,14 +85,7 @@ class _AdminLoginState extends State<AdminLogin> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 53, 51, 51),
-                  Colors.black,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              color: Colors.black,
               borderRadius: BorderRadius.vertical(
                 top:
                     Radius.elliptical(MediaQuery.of(context).size.width, 110.0),
@@ -110,112 +104,130 @@ class _AdminLoginState extends State<AdminLogin> {
                       style: AppWidget.largeLight(),
                     ),
                     const SizedBox(height: 30.0),
-                    Material(
-                      elevation: 3.0,
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height / 2.0,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 45.0),
-                              Container(
-                                height: 60.0,
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, top: 5.0, right: 20.0),
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 25.0, vertical: 20.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: const Color.fromARGB(
-                                        255, 160, 160, 147),
+                    Center(
+                      child: Material(
+                        elevation: 3.0,
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Container(
+                          width: 600,
+                          height: MediaQuery.of(context).size.height / 1.9,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 45.0),
+                                Container(
+                                  height: 60.0,
+                                  padding: const EdgeInsets.only(
+                                      left: 20.0, top: 5.0, right: 20.0),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 25.0, vertical: 20.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 160, 160, 147),
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Center(
+                                    child: TextFormField(
+                                      controller: usernamecotroller,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please Enter The Username';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'Username',
+                                          hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 160, 160, 147))),
+                                    ),
+                                  ),
                                 ),
-                                child: Center(
-                                  child: TextFormField(
-                                    controller: usernamecotroller,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please Enter The Username';
-                                      }
-                                      return null;
-                                    },
-                                    decoration: const InputDecoration(
+                                const SizedBox(height: 10.0),
+                                Container(
+                                  height: 60.0,
+                                  padding: const EdgeInsets.only(
+                                      left: 20.0, top: 5.0, right: 20.0),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 25.0, vertical: 20.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 160, 160, 147),
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Center(
+                                    child: TextFormField(
+                                      controller: passwordcotroller,
+                                      obscureText: true,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please Enter The Password';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: const InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Username',
+                                        hintText: 'Password',
                                         hintStyle: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 160, 160, 147))),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 10.0),
-                              Container(
-                                height: 60.0,
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, top: 5.0, right: 20.0),
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 25.0, vertical: 20.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: const Color.fromARGB(
-                                        255, 160, 160, 147),
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Center(
-                                  child: TextFormField(
-                                    controller: passwordcotroller,
-                                    obscureText: true,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please Enter The Password';
-                                      }
-                                      return null;
-                                    },
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'Password',
-                                      hintStyle: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 160, 160, 147),
+                                          color: Color.fromARGB(
+                                              255, 160, 160, 147),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(height: 20.0),
-                              GestureDetector(
-                                onTap: () async {
-                                  await login();
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 12.0),
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: const Center(
-                                    child: Text(
-                                      'Login',
-                                      style: TextStyle(
-                                          fontSize: 24.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
+                                const SizedBox(height: 40.0),
+                                GestureDetector(
+                                  onTap: () async {
+                                    await login();
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12.0),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        'Login',
+                                        style: TextStyle(
+                                            fontSize: 24.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                                const SizedBox(height: 40.0),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) => const Login()),
+                                    );
+                                  },
+                                  child: Center(
+                                    child: Text(
+                                      'Not admin? login as User',
+                                      style: AppWidget.platesLight(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

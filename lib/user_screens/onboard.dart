@@ -35,6 +35,7 @@ class _OnboardState extends State<Onboard> {
 
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: PageView.builder(
@@ -54,8 +55,9 @@ class _OnboardState extends State<Onboard> {
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image.asset(
                             contents[i].image,
-                            height: 350,
-                            width: MediaQuery.of(context).size.width / 1.3,
+                            height: 420,
+                            // width: MediaQuery.of(context).size.width / 1.3,
+                            width: 330,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -97,7 +99,7 @@ class _OnboardState extends State<Onboard> {
             },
             child: Container(
               decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: Colors.black,
                   borderRadius: BorderRadius.circular(20.0),
                   border: Border.all(
                       color: themeState.getDarkTheme
@@ -105,7 +107,7 @@ class _OnboardState extends State<Onboard> {
                           : Colors.black)),
               height: 60,
               margin: const EdgeInsets.all(60.0),
-              width: double.infinity,
+              width: 300,
               child: Center(
                 child: Text(
                   currentIndex == contents.length - 1 ? 'Start' : 'Next',

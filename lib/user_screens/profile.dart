@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,6 +10,7 @@ import 'package:restaurante/ApiFiles/api_link.dart';
 import 'package:restaurante/main.dart';
 import 'dart:io';
 import '../ApiFiles/crud.dart';
+import '../customer_support/custumer_support.dart';
 import '../widgets/dark_theme_provider.dart';
 
 class Profile extends StatefulWidget {
@@ -413,9 +415,7 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20.0,
-                        )
+                        const SizedBox(height: 20.0),
                       ],
                     )
                   : const SizedBox(
@@ -530,6 +530,19 @@ class _ProfileState extends State<Profile> {
             ),
             const SizedBox(height: 20.0),
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              CupertinoPageRoute(
+                  builder: (context) => const CustomerSupport()));
+        },
+        tooltip: 'Increment',
+        child: const Icon(
+          Icons.support_agent,
+          size: 30,
         ),
       ),
     );

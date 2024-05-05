@@ -92,39 +92,38 @@ class _LoginState extends State<Login> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 2.5,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(colors: [
-                        Colors.red,
-                        Colors.orange,
-                        Colors.yellow
-                      ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
+                      color: Colors.black,
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height / 3),
+                          top: MediaQuery.of(context).size.height / 2),
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                          color: themeState.getDarkTheme
-                              ? Colors.black
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(40)),
+                        color: themeState.getDarkTheme
+                            ? Colors.black
+                            : Colors.white,
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height / 16,
-                        left: MediaQuery.of(context).size.width / 14,
-                        right: MediaQuery.of(context).size.width / 14,
+                        // top: MediaQuery.of(context).size.height / 13,
+                        left: MediaQuery.of(context).size.width / 13,
+                        right: MediaQuery.of(context).size.width / 13,
                       ),
                       child: Form(
                         key: _formkey,
                         child: Column(
                           children: [
                             Center(
-                                child: Image.asset('images/Restaurante.webp',
-                                    width:
-                                        MediaQuery.of(context).size.width / 3.5,
-                                    fit: BoxFit.cover)),
+                                child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                'https://th.bing.com/th/id/OIP.soZfjDIfN8FKzShXdZq94QHaHa?w=1920&h=1920&rs=1&pid=ImgDetMain',
+                                width: 200,
+                                fit: BoxFit.cover,
+                              ),
+                            )),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height / 18),
@@ -137,7 +136,7 @@ class _LoginState extends State<Login> {
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20.0),
-                                width: MediaQuery.of(context).size.width,
+                                width: 600,
                                 height:
                                     MediaQuery.of(context).size.height / 2.0,
                                 decoration: BoxDecoration(
@@ -198,11 +197,14 @@ class _LoginState extends State<Login> {
                                                       const ForgotPassword()));
                                         },
                                         child: Container(
-                                            alignment: Alignment.topRight,
-                                            child: Text('Forget Password ?',
-                                                style: themeState.getDarkTheme
-                                                    ? AppWidget.platesDark()
-                                                    : AppWidget.platesLight())),
+                                          alignment: Alignment.topRight,
+                                          child: Text(
+                                            'Forget Password ?',
+                                            style: themeState.getDarkTheme
+                                                ? AppWidget.platesDark()
+                                                : AppWidget.platesLight(),
+                                          ),
+                                        ),
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
@@ -224,7 +226,7 @@ class _LoginState extends State<Login> {
                                                     .width /
                                                 2.1,
                                             decoration: BoxDecoration(
-                                                color: Colors.orange,
+                                                color: Colors.black,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         20.0)),

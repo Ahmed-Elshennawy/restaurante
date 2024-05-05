@@ -43,8 +43,10 @@ dependencies:
   http: ^1.2.1
   dio: ^5.4.1
   awesome_dialog: ^3.2.0
+  flutter_screenutil: ^5.9.0
 
   path: any
+  flutter_tawk: ^0.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -86,15 +86,12 @@ class _SignUpState extends State<SignUp> {
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 2.5,
                       decoration: const BoxDecoration(
-                          gradient: LinearGradient(colors: [
-                        Colors.red,
-                        Colors.orange,
-                        Colors.yellow
-                      ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
+                        color: Colors.black,
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height / 3),
+                          top: MediaQuery.of(context).size.height / 2),
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
@@ -105,16 +102,16 @@ class _SignUpState extends State<SignUp> {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height / 16,
+                        // top: MediaQuery.of(context).size.height / 16,
                         left: MediaQuery.of(context).size.width / 14,
                         right: MediaQuery.of(context).size.width / 14,
                       ),
                       child: Column(
                         children: [
                           Center(
-                              child: Image.asset('images/Restaurante.webp',
-                                  width:
-                                      MediaQuery.of(context).size.width / 3.5,
+                              child: Image.network(
+                                  'https://static.vecteezy.com/system/resources/previews/023/683/109/original/retro-vintage-style-ornament-design-logo-retro-restaurant-typography-emblem-line-simple-elegant-fork-spoon-and-knife-free-vector.jpg',
+                                  width: 200,
                                   fit: BoxFit.cover)),
                           SizedBox(
                               height: MediaQuery.of(context).size.height / 18),
@@ -127,7 +124,8 @@ class _SignUpState extends State<SignUp> {
                             child: Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
-                              width: MediaQuery.of(context).size.width,
+                              // width: MediaQuery.of(context).size.width,
+                              width: 600,
                               height: MediaQuery.of(context).size.height / 1.8,
                               decoration: BoxDecoration(
                                   color: themeState.getDarkTheme
@@ -187,7 +185,6 @@ class _SignUpState extends State<SignUp> {
                                           return validInput(value!, 3, 50);
                                         },
                                         prefix: Icons.password,
-                                        
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
@@ -209,7 +206,7 @@ class _SignUpState extends State<SignUp> {
                                                     .width /
                                                 2.1,
                                             decoration: BoxDecoration(
-                                                color: Colors.orange,
+                                                color: Colors.black,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         20.0)),

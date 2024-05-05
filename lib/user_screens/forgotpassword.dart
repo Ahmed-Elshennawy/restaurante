@@ -20,8 +20,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         children: [
           const SizedBox(height: 70.0),
           Center(
-              child: Image.asset('images/Restaurante.webp',
-                  width: MediaQuery.of(context).size.width / 3.5,
+              child: Image.network(
+                  'https://static.vecteezy.com/system/resources/previews/023/683/109/original/retro-vintage-style-ornament-design-logo-retro-restaurant-typography-emblem-line-simple-elegant-fork-spoon-and-knife-free-vector.jpg',
+                  width: 200,
                   fit: BoxFit.cover)),
           const SizedBox(height: 40.0),
           Container(
@@ -50,88 +51,93 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               key: _formkey,
               child: Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                child: ListView(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white70, width: 2.0),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: TextFormField(
-                        controller: mailcontroller,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter Email';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                          hintText: 'Email',
-                          hintStyle:
-                              TextStyle(fontSize: 18.0, color: Colors.white),
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: Colors.white,
-                          ),
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 40.0),
-                    GestureDetector(
-                      onTap: () {
-                        if (_formkey.currentState!.validate()) {
-                          setState(() {
-                            email = mailcontroller.text;
-                          });
-                        }
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(10.0),
+                child: SizedBox(
+                  width: 350,
+                  child: ListView(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(left: 10.0),
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: Colors.white70, width: 2.0),
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        child: const Center(
-                          child: Text(
-                            'Send Email',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
+                        child: TextFormField(
+                          controller: mailcontroller,
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please Enter Email';
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'Email',
+                            hintStyle:
+                                TextStyle(fontSize: 18.0, color: Colors.white),
+                            prefixIcon: Icon(
+                              Icons.person,
+                              color: Colors.white,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 40.0),
+                      GestureDetector(
+                        onTap: () {
+                          if (_formkey.currentState!.validate()) {
+                            setState(() {
+                              email = mailcontroller.text;
+                            });
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'Send Email',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 40.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Don\'t have an account?',
-                          style: TextStyle(fontSize: 18.0, color: Colors.white),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SignUp()));
-                          },
-                          child: const Text(
-                            'Create',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Color.fromARGB(225, 184, 166, 6),
+                      const SizedBox(height: 40.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Don\'t have an account?',
+                            style:
+                                TextStyle(fontSize: 18.0, color: Colors.white),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const SignUp()));
+                            },
+                            child: const Text(
+                              'Create',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: Color.fromARGB(225, 184, 166, 6),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
