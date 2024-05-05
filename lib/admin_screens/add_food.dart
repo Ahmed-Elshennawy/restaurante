@@ -1,4 +1,6 @@
-import 'package:restaurante/ApiFiles/apiLink.dart';
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously
+
+import 'package:restaurante/ApiFiles/api_link.dart';
 import 'package:restaurante/ApiFiles/crud.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
@@ -50,11 +52,8 @@ class _AddFoodState extends State<AddFood> {
           selectedImage!);
 
       if (response["status"] == "success") {
-        print("success");
         Navigator.of(context)
             .pushNamedAndRemoveUntil("navigation", (route) => false);
-      } else {
-        print("fail");
       }
     }
   }

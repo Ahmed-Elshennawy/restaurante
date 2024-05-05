@@ -1,13 +1,13 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:restaurante/components/custometextForm.dart';
+import 'package:restaurante/components/custometext_form.dart';
 import 'package:restaurante/components/valid.dart';
 import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../ApiFiles/apiLink.dart';
+import '../ApiFiles/api_link.dart';
 import '../ApiFiles/crud.dart';
 import '../widgets/reused.dart';
 import 'login.dart';

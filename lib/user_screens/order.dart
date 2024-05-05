@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurante/components/editWallet.dart';
+import 'package:restaurante/components/edit_wallet.dart';
 import '../widgets/dark_theme_provider.dart';
 import '../widgets/reused.dart';
 import '../widgets/provider.dart';

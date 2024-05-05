@@ -1,11 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurante/ApiFiles/apiLink.dart';
+import 'package:restaurante/ApiFiles/api_link.dart';
 import 'package:restaurante/main.dart';
 import 'dart:io';
 import '../ApiFiles/crud.dart';
@@ -42,12 +42,10 @@ class _ProfileState extends State<Profile> {
     setState(() {});
     if (response["status"] == "success") {
       sharedPref.setString("profile_pic_name", response['0']);
-    } else {
-      print("fail");
     }
   }
 
-  DeleteAccount() async {
+  deleteAccount() async {
     var response = await crud.postRequest(linkUserDelete, {
       "id": sharedPref.getString("id").toString(),
     });
@@ -415,12 +413,12 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         )
                       ],
                     )
-                  : SizedBox(
+                  : const SizedBox(
                       height: 0,
                     ),
             ),
@@ -428,7 +426,7 @@ class _ProfileState extends State<Profile> {
               margin: const EdgeInsets.symmetric(horizontal: 20.0),
               child: GestureDetector(
                 onTap: () async {
-                  await DeleteAccount();
+                  await deleteAccount();
                   sharedPref.clear();
                 },
                 child: Material(

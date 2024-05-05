@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:restaurante/components/editWallet.dart';
+import 'package:restaurante/components/edit_wallet.dart';
 import 'package:restaurante/main.dart';
 
 class WalletProvider extends ChangeNotifier {

@@ -1,4 +1,4 @@
-import 'package:restaurante/ApiFiles/apiLink.dart';
+import 'package:restaurante/ApiFiles/api_link.dart';
 import 'package:restaurante/ApiFiles/crud.dart';
 import 'package:restaurante/main.dart';
 
@@ -10,9 +10,5 @@ editWallet(int amount) async {
 
   if (response["status"] == "success") {
     sharedPref.setString("wallet_palance", amount.toString());
-
-    print("success");
-  } else {
-    print("fail");
   }
 }
