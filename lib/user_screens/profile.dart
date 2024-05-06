@@ -306,10 +306,7 @@ class _ProfileState extends State<Profile> {
             ),
             const SizedBox(height: 20.0),
             GestureDetector(
-              onTap: () async {
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil("navigation", (route) => false);
-              },
+              onTap: () async {},
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Material(

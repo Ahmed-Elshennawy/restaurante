@@ -207,14 +207,19 @@ class _SignUpState extends State<SignUp> {
                                                     .width /
                                                 2.1,
                                             decoration: BoxDecoration(
-                                                color: Colors.white,
+                                                color: themeState.getDarkTheme
+                                                    ? Colors.white
+                                                    : Colors.black,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         20.0)),
-                                            child: const Center(
+                                            child: Center(
                                               child: Text('Sign up',
                                                   style: TextStyle(
-                                                      color: Colors.black,
+                                                      color: themeState
+                                                              .getDarkTheme
+                                                          ? Colors.black
+                                                          : Colors.white,
                                                       fontSize: 18.0,
                                                       fontWeight:
                                                           FontWeight.bold)),

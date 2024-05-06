@@ -5,6 +5,7 @@ const String linkSignUp = "$linkServerName/auth/signup.php";
 const String linklogin = "$linkServerName/auth/login.php";
 const String linkUserDelete = "$linkServerName/auth/delete.php";
 const String linkAdminlogin = "$linkServerName/auth/adminLogin.php";
+const String linkResetPassword = "$linkServerName/auth/resetPass.php";
 
 // order
 const String linkorderAdd = "$linkServerName/orders/add.php";

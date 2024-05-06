@@ -1,3 +1,7 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:restaurante/ApiFiles/api_link.dart';
+import 'package:restaurante/ApiFiles/crud.dart';
+
 import 'signup.dart';
 import 'package:flutter/material.dart';
 
@@ -11,15 +15,47 @@ class ForgotPassword extends StatefulWidget {
 class _ForgotPasswordState extends State<ForgotPassword> {
   TextEditingController mailcontroller = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
-  String email = "";
   final _formkey = GlobalKey<FormState>();
+
+  Crud crud = Crud();
+  updatePass() async {
+    var response = await crud.postRequest(linkResetPassword, {
+      "email": mailcontroller.text,
+      "password": newPasswordController.text,
+    });
+
+    if (response["status"] == "success") {
+      Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(milliseconds: 1000),
+          content: Text(
+            'Password Reset successfully',
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0),
+          ),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.info,
+        animType: AnimType.rightSlide,
+        desc: 'Failed to reset your password',
+      ).show();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          const SizedBox(height: 70.0),
+          const SizedBox(height: 20.0),
           Center(
               child: Image.asset("images/AppLogo.jpg",
                   width: 200, fit: BoxFit.cover)),
@@ -27,7 +63,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           Container(
             alignment: Alignment.topCenter,
             child: const Text(
-              'Password Recovery',
+              'Password Reset',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 30.0,
@@ -35,16 +71,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               ),
             ),
           ),
-          const SizedBox(height: 10.0),
-          const Text(
-            'Enter your mail',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 40.0),
+          const SizedBox(height: 20.0),
           Expanded(
             child: Form(
               key: _formkey,
@@ -113,12 +140,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ),
                       const SizedBox(height: 40.0),
                       GestureDetector(
-                        onTap: () {
-                          if (_formkey.currentState!.validate()) {
-                            setState(() {
-                              email = mailcontroller.text;
-                            });
-                          }
+                        onTap: () async {
+                          await updatePass();
                         },
                         child: Container(
                           padding: const EdgeInsets.all(10.0),

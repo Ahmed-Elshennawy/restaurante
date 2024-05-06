@@ -51,6 +51,7 @@ class _LoginState extends State<Login> {
             "wallet_palance", response['data']['wallet_palance'].toString());
         sharedPref.setString(
             "profile_pic_name", response['data']['profile_pic_name']);
+        sharedPref.setString("theme", response['data']['theme'].toString());
 
         Navigator.of(context)
             .pushNamedAndRemoveUntil("navigation", (route) => false);
@@ -229,15 +230,20 @@ class _LoginState extends State<Login> {
                                                     .width /
                                                 2.1,
                                             decoration: BoxDecoration(
-                                                color: Colors.white,
+                                                color: themeState.getDarkTheme
+                                                    ? Colors.white
+                                                    : Colors.black,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         20.0)),
-                                            child: const Center(
+                                            child: Center(
                                               child: Text(
                                                 'LOGIN',
                                                 style: TextStyle(
-                                                    color: Colors.black,
+                                                    color:
+                                                        themeState.getDarkTheme
+                                                            ? Colors.black
+                                                            : Colors.white,
                                                     fontSize: 18.0,
                                                     fontWeight:
                                                         FontWeight.bold),
