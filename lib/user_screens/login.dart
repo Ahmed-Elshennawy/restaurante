@@ -217,6 +217,9 @@ class _LoginState extends State<Login> {
                                         },
                                         child: Material(
                                           elevation: 6,
+                                          shadowColor: themeState.getDarkTheme
+                                              ? Colors.white
+                                              : Colors.black,
                                           borderRadius:
                                               BorderRadius.circular(20.0),
                                           child: Container(
@@ -226,7 +229,7 @@ class _LoginState extends State<Login> {
                                                     .width /
                                                 2.1,
                                             decoration: BoxDecoration(
-                                                color: Colors.black,
+                                                color: Colors.white,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         20.0)),
@@ -234,7 +237,7 @@ class _LoginState extends State<Login> {
                                               child: Text(
                                                 'LOGIN',
                                                 style: TextStyle(
-                                                    color: Colors.white,
+                                                    color: Colors.black,
                                                     fontSize: 18.0,
                                                     fontWeight:
                                                         FontWeight.bold),

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tawk/flutter_tawk.dart';
+import 'package:restaurante/main.dart';
 
 class CustomerSupport extends StatefulWidget {
   const CustomerSupport({super.key});
@@ -23,8 +24,8 @@ class _CustomerSupportState extends State<CustomerSupport> {
         directChatLink:
             'https://tawk.to/chat/6637c8e39a809f19fb2da840/1ht4uhe67',
         visitor: TawkVisitor(
-          name: 'Ahmed Ibrahem', /// اسحب الاسم والايميل من الداتا بيز
-          email: 'ahmedlshennawy90@gmail.com',
+          name: sharedPref.getString('username'),    
+          email: sharedPref.getString('email'), 
         ),
         onLoad: () {
           print('Hello Tawk!');

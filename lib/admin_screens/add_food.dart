@@ -200,7 +200,7 @@ class _AddFoodState extends State<AddFood> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: TextField(
-                    controller: timecontroller,
+                    controller: pricecontroller,
                     style: TextStyle(
                       color:
                           themeState.getDarkTheme ? Colors.white : Colors.black,
@@ -235,7 +235,7 @@ class _AddFoodState extends State<AddFood> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: TextField(
-                    controller: pricecontroller,
+                    controller: timecontroller,
                     style: TextStyle(
                       color:
                           themeState.getDarkTheme ? Colors.white : Colors.black,

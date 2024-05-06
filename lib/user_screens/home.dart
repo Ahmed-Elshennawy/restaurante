@@ -1,10 +1,9 @@
-import 'package:restaurante/ApiFiles/api_link.dart';
-import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../ApiFiles/crud.dart';
-import '../widgets/dummy_data.dart';
-import '../widgets/reused.dart';
+import 'package:restaurante/ApiFiles/api_link.dart';
+import 'package:restaurante/ApiFiles/crud.dart';
+import 'package:restaurante/widgets/dark_theme_provider.dart';
+import 'package:restaurante/widgets/reused.dart';
 import 'details.dart';
 
 class Home extends StatefulWidget {
@@ -15,10 +14,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool burger = false, pizza = false, ice = false, salad = false;
-  String? selectedCategory;
+  int? selectedOurCategory;
   List<dynamic> selectedList = [];
-  List<dynamic> selectedList2 = [];
+  List<dynamic> ourpizza = [];
+  List<dynamic> ourburger = [];
+  List<dynamic> ouricecream = [];
+  List<dynamic> oursalad = [];
+  final Map<int, String> categoryImages = {
+    4: 'images/pizza.png',
+    2: 'images/burger.png',
+    3: 'images/salad.png',
+    1: 'images/ice-cream.png',
+  };
   Crud crud = Crud();
 
   @override
@@ -27,33 +34,63 @@ class _HomeState extends State<Home> {
     getItem();
   }
 
-  getItem() async {
+  void categorizeItems() {
+    for (var element in selectedList) {
+      switch (element['item_category']) {
+        case 1:
+          ouricecream.add(element);
+          break;
+        case 2:
+          ourburger.add(element);
+          break;
+        case 3:
+          oursalad.add(element);
+          break;
+        case 4:
+          ourpizza.add(element);
+          break;
+      }
+    }
+  }
+
+  Future<void> getItem() async {
     var response = await crud.getRequest(linkitemView);
     if (response['status'] == 'success') {
       setState(() {
         selectedList = response['data'];
       });
+      categorizeItems();
+    }
+  }
+
+  void updateSelectedList(int category) {
+    switch (category) {
+      case 1:
+        setState(() {
+          selectedList = ouricecream;
+        });
+        break;
+      case 2:
+        setState(() {
+          selectedList = ourburger;
+        });
+        break;
+      case 3:
+        setState(() {
+          selectedList = oursalad;
+        });
+        break;
+      case 4:
+        setState(() {
+          selectedList = ourpizza;
+        });
+        break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
-
-    switch (selectedCategory) {
-      case 'burger':
-        selectedList2 = DummyData.burgerList;
-        break;
-      case 'ice':
-        selectedList2 = DummyData.iceList;
-        break;
-      case 'salad':
-        selectedList2 = DummyData.saladList;
-        break;
-      default:
-        selectedList2 = DummyData.pizzaList;
-        break;
-    }
 
     return Scaffold(
       body: Container(
@@ -62,15 +99,15 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Restaurante',
-                  style: themeState.getDarkTheme
-                      ? AppWidget.titleNameDark()
-                      : AppWidget.titleNameLight()),
-              const SizedBox(
-                height: 20.0,
+              Text(
+                'Restaurante',
+                style: themeState.getDarkTheme
+                    ? AppWidget.titleNameDark()
+                    : AppWidget.titleNameLight(),
               ),
+              const SizedBox(height: 20.0),
               Material(
-                elevation: 5.0,
+                elevation: 10.0,
                 shadowColor:
                     themeState.getDarkTheme ? Colors.white : Colors.black,
                 borderRadius: BorderRadius.circular(10),
@@ -82,226 +119,88 @@ class _HomeState extends State<Home> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: SwitchListTile(
-                      onChanged: (bool value) {
-                        themeState.setDarkTheme = value;
-                      },
-                      value: themeState.getDarkTheme,
-                      title: Text(
-                        'Dark Mode',
-                        style: themeState.getDarkTheme
-                            ? AppWidget.platesDark()
-                            : AppWidget.platesLight(),
-                      ),
-                      secondary: themeState.getDarkTheme
-                          ? const Icon(Icons.light_mode_outlined,
-                              color: Colors.white)
-                          : const Icon(
-                              Icons.dark_mode_outlined,
-                              color: Colors.black,
-                            )),
+                    onChanged: (bool value) {
+                      themeState.setDarkTheme = value;
+                    },
+                    value: themeState.getDarkTheme,
+                    title: Text(
+                      'Dark Mode',
+                      style: themeState.getDarkTheme
+                          ? AppWidget.platesDark()
+                          : AppWidget.platesLight(),
+                    ),
+                    secondary: themeState.getDarkTheme
+                        ? const Icon(Icons.light_mode_outlined,
+                            color: Colors.white)
+                        : const Icon(Icons.dark_mode_outlined,
+                            color: Colors.black),
+                  ),
                 ),
               ),
               const SizedBox(height: 20.0),
-              Text('Our Food',
-                  style: themeState.getDarkTheme
-                      ? AppWidget.largeDark()
-                      : AppWidget.largeLight()),
-              Text('Enjoy and Get Delicious Food',
-                  style: themeState.getDarkTheme
-                      ? AppWidget.infoDark()
-                      : AppWidget.infoLight()),
-              const SizedBox(height: 15.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedCategory = 'burger';
-                      });
-                    },
-                    child: Material(
-                      elevation: 6.0,
-                      shadowColor:
-                          themeState.getDarkTheme ? Colors.white : Colors.black,
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: selectedCategory == 'burger'
-                              ? Colors.black
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Image.asset(
-                          'images/burger.png',
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                          color: selectedCategory == 'burger'
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedCategory = 'pizza';
-                      });
-                    },
-                    child: Material(
-                      elevation: 6.0,
-                      shadowColor:
-                          themeState.getDarkTheme ? Colors.white : Colors.black,
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: selectedCategory == 'pizza'
-                              ? Colors.black
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Image.asset(
-                          'images/pizza.png',
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                          color: selectedCategory == 'pizza'
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedCategory = 'ice';
-                      });
-                    },
-                    child: Material(
-                      elevation: 6.0,
-                      shadowColor:
-                          themeState.getDarkTheme ? Colors.white : Colors.black,
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: selectedCategory == 'ice'
-                              ? Colors.black
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Image.asset(
-                          'images/ice-cream.png',
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                          color: selectedCategory == 'ice'
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedCategory = 'salad';
-                      });
-                    },
-                    child: Material(
-                      elevation: 6.0,
-                      shadowColor:
-                          themeState.getDarkTheme ? Colors.white : Colors.black,
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: selectedCategory == 'salad'
-                              ? Colors.black
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Image.asset(
-                          'images/salad.png',
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                          color: selectedCategory == 'salad'
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              Text(
+                'Our Food',
+                style: themeState.getDarkTheme
+                    ? AppWidget.largeDark()
+                    : AppWidget.largeLight(),
               ),
-              const SizedBox(height: 20.0),
+              Text(
+                'Enjoy Our Delicious Food',
+                style: themeState.getDarkTheme
+                    ? AppWidget.infoDark()
+                    : AppWidget.infoLight(),
+              ),
+              const SizedBox(height: 15.0),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: selectedList2.map(
-                    (item) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Details(
-                                        image: item['image'],
-                                        name: item['name'],
-                                        detail: item['detail'],
-                                        price: item['price'],
-                                        time: item['time'],
-                                      )));
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.all(5),
-                          child: Material(
-                            borderRadius: BorderRadius.circular(20.0),
-                            elevation: 6,
-                            shadowColor: themeState.getDarkTheme
-                                ? Colors.white
-                                : Colors.black,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  children: categoryImages.entries.map((entry) {
+                    final category = entry.key;
+                    final imagePath = entry.value;
+
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedOurCategory = category;
+                        });
+                        updateSelectedList(category);
+                      },
+                      child: Row(
+                        children: [
+                          Material(
+                            borderRadius: BorderRadius.circular(10.0),
                             child: Container(
-                              padding: const EdgeInsets.all(10),
-                              margin: const EdgeInsets.all(0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.network(item['image'],
-                                        height: 110.0,
-                                        width: 150.0,
-                                        fit: BoxFit.cover),
-                                  ),
-                                  Text(item['name'],
-                                      style: themeState.getDarkTheme
-                                          ? AppWidget.platesDark()
-                                          : AppWidget.platesLight()),
-                                  Text(item['detail'],
-                                      style: themeState.getDarkTheme
-                                          ? AppWidget.infoDark()
-                                          : AppWidget.infoLight()),
-                                  Text(item['price'],
-                                      style: themeState.getDarkTheme
-                                          ? AppWidget.platesDark()
-                                          : AppWidget.platesLight()),
-                                ],
+                              decoration: BoxDecoration(
+                                color: selectedOurCategory == category
+                                    ? Colors.black
+                                    : Colors.white,
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              padding: const EdgeInsets.all(10.0),
+                              child: Image.asset(
+                                imagePath,
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.cover,
+                                color: selectedOurCategory == category
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ).toList(),
+                          const SizedBox(
+                            width: 25,
+                          )
+                        ],
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
+              const SizedBox(height: 20.0),
               ListView.builder(
                 itemCount: selectedList.length,
                 shrinkWrap: true,
@@ -326,7 +225,7 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         Material(
-                          elevation: 6,
+                          elevation: 10.0,
                           shadowColor: themeState.getDarkTheme
                               ? Colors.white
                               : Colors.black,
@@ -370,11 +269,23 @@ class _HomeState extends State<Home> {
                                                 ? AppWidget.infoDark()
                                                 : AppWidget.infoLight(),
                                           ),
-                                          Text(
-                                            item['item_price'].toString(),
-                                            style: themeState.getDarkTheme
-                                                ? AppWidget.platesDark()
-                                                : AppWidget.platesLight(),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "${item['item_time'].toString()} \$",
+                                                style: themeState.getDarkTheme
+                                                    ? AppWidget.platesDark()
+                                                    : AppWidget.platesLight(),
+                                              ),
+                                              const SizedBox(width: 30),
+                                              Text(
+                                                "${item['item_price'].toString()} mins",
+                                                style: themeState.getDarkTheme
+                                                    ? AppWidget.platesDark()
+                                                    : AppWidget.platesLight(),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),

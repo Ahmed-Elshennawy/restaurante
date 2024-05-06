@@ -10,6 +10,7 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   TextEditingController mailcontroller = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
   String email = "";
   final _formkey = GlobalKey<FormState>();
   @override
@@ -20,10 +21,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         children: [
           const SizedBox(height: 70.0),
           Center(
-              child: Image.network(
-                  'https://static.vecteezy.com/system/resources/previews/023/683/109/original/retro-vintage-style-ornament-design-logo-retro-restaurant-typography-emblem-line-simple-elegant-fork-spoon-and-knife-free-vector.jpg',
-                  width: 200,
-                  fit: BoxFit.cover)),
+              child: Image.asset("images/AppLogo.jpg",
+                  width: 200, fit: BoxFit.cover)),
           const SizedBox(height: 40.0),
           Container(
             alignment: Alignment.topCenter,
@@ -84,6 +83,35 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                       ),
                       const SizedBox(height: 40.0),
+                      Container(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white70, width: 2.0),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: TextFormField(
+                          controller: newPasswordController,
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please Enter your new password';
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'New Password',
+                            hintStyle:
+                                TextStyle(fontSize: 18.0, color: Colors.white),
+                            prefixIcon: Icon(
+                              Icons.password,
+                              color: Colors.white,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 40.0),
                       GestureDetector(
                         onTap: () {
                           if (_formkey.currentState!.validate()) {
@@ -100,7 +128,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           ),
                           child: const Center(
                             child: Text(
-                              'Send Email',
+                              'Update Password',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18.0,

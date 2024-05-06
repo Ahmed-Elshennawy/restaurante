@@ -1,5 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../widgets/dark_theme_provider.dart';
 import 'home.dart';
 import 'order.dart';
 import 'profile.dart';
@@ -33,9 +35,13 @@ class _NavigationState extends State<Navigation> {
 
   @override
   Widget build(BuildContext context) {
+    final themeState = Provider.of<DarkThemeProvider>(context);
+
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
-          height: 65,
+          buttonBackgroundColor:
+              themeState.getDarkTheme ? Colors.purple : Colors.black,
+          height: 50,
           backgroundColor: Colors.white,
           color: Colors.black,
           animationDuration: const Duration(milliseconds: 300),
