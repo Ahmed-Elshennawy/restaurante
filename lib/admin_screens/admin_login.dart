@@ -75,7 +75,7 @@ class _AdminLoginState extends State<AdminLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffededeb),
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
           Container(
@@ -85,7 +85,7 @@ class _AdminLoginState extends State<AdminLogin> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: const Color(0xffededeb),
               borderRadius: BorderRadius.vertical(
                 top:
                     Radius.elliptical(MediaQuery.of(context).size.width, 110.0),
@@ -93,15 +93,19 @@ class _AdminLoginState extends State<AdminLogin> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 60.0),
+            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0),
             child: SingleChildScrollView(
               child: Form(
                 key: _formkey,
                 child: Column(
                   children: [
+                    Image.asset(
+                      "images/AppLogo.jpg",
+                      width: 200,
+                    ),
                     Text(
-                      'Let\'s start with\nAdmin!',
-                      style: AppWidget.largeLight(),
+                      'Start as Admin!',
+                      style: AppWidget.largeDark(),
                     ),
                     const SizedBox(height: 30.0),
                     Center(

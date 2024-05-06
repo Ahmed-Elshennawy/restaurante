@@ -109,10 +109,8 @@ class _SignUpState extends State<SignUp> {
                       child: Column(
                         children: [
                           Center(
-                              child: Image.network(
-                                  'https://static.vecteezy.com/system/resources/previews/023/683/109/original/retro-vintage-style-ornament-design-logo-retro-restaurant-typography-emblem-line-simple-elegant-fork-spoon-and-knife-free-vector.jpg',
-                                  width: 200,
-                                  fit: BoxFit.cover)),
+                              child: Image.asset("images/AppLogo.jpg",
+                                  width: 200, fit: BoxFit.cover)),
                           SizedBox(
                               height: MediaQuery.of(context).size.height / 18),
                           Material(

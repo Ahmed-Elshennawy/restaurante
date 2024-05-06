@@ -118,8 +118,8 @@ class _LoginState extends State<Login> {
                             Center(
                                 child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                'https://th.bing.com/th/id/OIP.soZfjDIfN8FKzShXdZq94QHaHa?w=1920&h=1920&rs=1&pid=ImgDetMain',
+                              child: Image.asset(
+                                "images/AppLogo.jpg",
                                 width: 200,
                                 fit: BoxFit.cover,
                               ),
