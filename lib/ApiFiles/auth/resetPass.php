@@ -3,13 +3,11 @@
 
 include '../config/db.php';
 
-$username = filterReq("username");
 $email = filterReq("email");
 $password = filterReq("password");
 
-
-$stmt = $con->prepare('INSERT INTO `users` (`username`, `email`, `password`, `wallet_palance`) VALUES (? , ? , ?, 0)');
-$stmt->execute(array($username,$email,$password));
+$stmt = $con->prepare("UPDATE users SET  `password` = ? where `email` = ?");
+$stmt->execute(array($password,$email));
 
 $count = $stmt->rowCount();
 if($count > 0){
