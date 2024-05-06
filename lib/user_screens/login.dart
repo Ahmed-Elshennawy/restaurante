@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
           context: context,
           dialogType: DialogType.info,
           animType: AnimType.rightSlide,
-          desc: 'LogIn Failed, Email or Password is Incorrect.',
+          desc: 'Log In Failed, Email or Password is Incorrect.',
         ).show();
       }
     }

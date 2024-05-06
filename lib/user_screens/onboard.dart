@@ -55,7 +55,7 @@ class _OnboardState extends State<Onboard> {
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image.asset(
                             contents[i].image,
-                            height: 420,
+                            height: 380,
                             // width: MediaQuery.of(context).size.width / 1.3,
                             width: 330,
                             fit: BoxFit.fill,

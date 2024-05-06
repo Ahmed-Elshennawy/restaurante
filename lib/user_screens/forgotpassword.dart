@@ -25,7 +25,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     });
 
     if (response["status"] == "success") {
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           duration: Duration(milliseconds: 1000),
@@ -41,6 +43,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       );
     } else {
       AwesomeDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         dialogType: DialogType.info,
         animType: AnimType.rightSlide,

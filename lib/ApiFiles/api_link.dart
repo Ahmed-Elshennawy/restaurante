@@ -22,8 +22,10 @@ const String linkitemView = "$linkServerName/items/view.php";
 const String linkImageItemRoot = "http://10.0.2.2/ApiPHPfiles/items/upload";
 
 // wallet
-
 const String linkEditWallet = "$linkServerName/Wallet/edit.php";
+
+// theme
+const String linkEditTheme = "$linkServerName/theme/edit.php";
 
 // profilePics
 

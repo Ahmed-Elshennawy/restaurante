@@ -54,6 +54,9 @@ class _AddFoodState extends State<AddFood> {
       if (response["status"] == "success") {
         Navigator.of(context)
             .pushNamedAndRemoveUntil("navigation", (route) => false);
+      } else {
+        // ignore: avoid_print
+        print("failed to add item");
       }
     }
   }
