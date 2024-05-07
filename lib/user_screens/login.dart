@@ -9,9 +9,7 @@ import 'package:restaurante/components/valid.dart';
 import 'package:restaurante/main.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../widgets/dark_theme_provider.dart';
 import 'forgotpassword.dart';
 import 'signup.dart';
 
@@ -123,7 +121,7 @@ class _LoginState extends State<Login> {
                             )),
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height / 18),
+                                    MediaQuery.of(context).size.height / 28),
                             Material(
                               elevation: 10.0,
                               borderRadius: BorderRadius.circular(20),
@@ -133,7 +131,7 @@ class _LoginState extends State<Login> {
                                     horizontal: 20.0),
                                 width: 600,
                                 height:
-                                    MediaQuery.of(context).size.height / 2.0,
+                                    MediaQuery.of(context).size.height / 1.8,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(20)),

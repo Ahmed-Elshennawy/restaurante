@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import '../widgets/dark_theme_provider.dart';
 import 'login.dart';
 import '../widgets/reused.dart';
 import '../widgets/reused_model.dart';

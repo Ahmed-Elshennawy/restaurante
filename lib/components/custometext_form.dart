@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:restaurante/widgets/reused.dart';
 
 class CustTextFormSign extends StatelessWidget {

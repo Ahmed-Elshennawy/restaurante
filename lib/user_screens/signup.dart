@@ -3,9 +3,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:restaurante/components/custometext_form.dart';
 import 'package:restaurante/components/valid.dart';
-import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../ApiFiles/api_link.dart';
 import '../ApiFiles/crud.dart';
