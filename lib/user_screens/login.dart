@@ -197,7 +197,7 @@ class _LoginState extends State<Login> {
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              40),
+                                              15),
                                       GestureDetector(
                                         onTap: () async {
                                           await login();
@@ -214,7 +214,7 @@ class _LoginState extends State<Login> {
                                                     .width /
                                                 2.1,
                                             decoration: BoxDecoration(
-                                                color: Colors.white,
+                                                color: Colors.black,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         20.0)),
@@ -222,7 +222,7 @@ class _LoginState extends State<Login> {
                                               child: Text(
                                                 'LOGIN',
                                                 style: TextStyle(
-                                                    color: Colors.black,
+                                                    color: Colors.white,
                                                     fontSize: 18.0,
                                                     fontWeight:
                                                         FontWeight.bold),

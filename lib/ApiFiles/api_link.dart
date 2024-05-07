@@ -1,34 +1,38 @@
-const String linkServerName = "http://10.0.2.2/ApiPHPfiles";
-const String linkImageRoot = "http://10.0.2.2/ApiPHPfiles/profile/upload";
+import 'dart:io';
+
+final platform = Platform.isAndroid ? "10.0.2.2" : "localhost";
+
+String linkServerName = "http://$platform/ApiPHPfiles";
+String linkImageRoot = "http://$platform/ApiPHPfiles/profile/upload";
 // Auth
-const String linkSignUp = "$linkServerName/auth/signup.php";
-const String linklogin = "$linkServerName/auth/login.php";
-const String linkUserDelete = "$linkServerName/auth/delete.php";
-const String linkAdminlogin = "$linkServerName/auth/adminLogin.php";
-const String linkResetPassword = "$linkServerName/auth/resetPass.php";
+String linkSignUp = "$linkServerName/auth/signup.php";
+String linklogin = "$linkServerName/auth/login.php";
+String linkUserDelete = "$linkServerName/auth/delete.php";
+String linkAdminlogin = "$linkServerName/auth/adminLogin.php";
+String linkResetPassword = "$linkServerName/auth/resetPass.php";
 
 // order
-const String linkorderAdd = "$linkServerName/orders/add.php";
-const String linkorderView = "$linkServerName/orders/view.php";
-const String linkImageOrderRoot = "http://10.0.2.2/ApiPHPfiles/orders/upload";
+String linkorderAdd = "$linkServerName/orders/add.php";
+String linkorderView = "$linkServerName/orders/view.php";
+String linkImageOrderRoot = "http://$platform/ApiPHPfiles/orders/upload";
 
-const String linkorderDelete = "$linkServerName/orders/delete.php";
-const String linkorderEdit = "$linkServerName/orders/edit.php";
+String linkorderDelete = "$linkServerName/orders/delete.php";
+String linkorderEdit = "$linkServerName/orders/edit.php";
 
 // items
 
-const String linkitemAdd = "$linkServerName/items/add.php";
-const String linkitemView = "$linkServerName/items/view.php";
-const String linkImageItemRoot = "http://10.0.2.2/ApiPHPfiles/items/upload";
+String linkitemAdd = "$linkServerName/items/add.php";
+String linkitemView = "$linkServerName/items/view.php";
+String linkImageItemRoot = "http://$platform/ApiPHPfiles/items/upload";
 
 // wallet
-const String linkEditWallet = "$linkServerName/Wallet/edit.php";
+String linkEditWallet = "$linkServerName/Wallet/edit.php";
 
 // theme
-const String linkEditTheme = "$linkServerName/theme/edit.php";
+String linkEditTheme = "$linkServerName/theme/edit.php";
 
 // profilePics
 
-const String linkImageUplaod = "$linkServerName/profile/pfpUpload.php";
-const String linkImageDelete = "$linkServerName/profile/pfpDelete.php";
-const String linkImageView = "$linkServerName/profile/pfpView.php";
+String linkImageUplaod = "$linkServerName/profile/pfpUpload.php";
+String linkImageDelete = "$linkServerName/profile/pfpDelete.php";
+String linkImageView = "$linkServerName/profile/pfpView.php";
