@@ -10,7 +10,6 @@ class CustTextFormSign extends StatelessWidget {
   final bool secureText;
   final IconData prefix;
 
-
   const CustTextFormSign({
     super.key,
     required this.hint,
@@ -22,23 +21,17 @@ class CustTextFormSign extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeState = Provider.of<DarkThemeProvider>(context);
-
     return TextFormField(
       controller: controller,
-      style: themeState.getDarkTheme
-          ? const TextStyle(color: Colors.white)
-          : const TextStyle(color: Colors.black),
+      style: const TextStyle(color: Colors.black),
       validator: valid,
       obscureText: secureText,
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: themeState.getDarkTheme
-            ? AppWidget.platesDark()
-            : AppWidget.platesLight(),
+        hintStyle: AppWidget.platesLight(),
         prefixIcon: Icon(
           prefix,
-          color: themeState.getDarkTheme ? Colors.white : Colors.black,
+          color: Colors.black,
         ),
       ),
     );

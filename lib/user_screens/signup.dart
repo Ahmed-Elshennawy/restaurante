@@ -72,8 +72,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final themeState = Provider.of<DarkThemeProvider>(context);
-
     return Scaffold(
       body: SingleChildScrollView(
         child: isLoading == true
@@ -91,18 +89,15 @@ class _SignUpState extends State<SignUp> {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height / 2),
+                          top: MediaQuery.of(context).size.height / 2.8),
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                          color: themeState.getDarkTheme
-                              ? Colors.black
-                              : Colors.white,
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(40)),
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                        // top: MediaQuery.of(context).size.height / 16,
                         left: MediaQuery.of(context).size.width / 14,
                         right: MediaQuery.of(context).size.width / 14,
                       ),
@@ -114,11 +109,9 @@ class _SignUpState extends State<SignUp> {
                           SizedBox(
                               height: MediaQuery.of(context).size.height / 18),
                           Material(
-                            elevation: 5.0,
+                            elevation: 10.0,
                             borderRadius: BorderRadius.circular(20),
-                            shadowColor: themeState.getDarkTheme
-                                ? Colors.white
-                                : Colors.black,
+                            shadowColor: Colors.white,
                             child: Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
@@ -126,9 +119,7 @@ class _SignUpState extends State<SignUp> {
                               width: 600,
                               height: MediaQuery.of(context).size.height / 1.8,
                               decoration: BoxDecoration(
-                                  color: themeState.getDarkTheme
-                                      ? Colors.black
-                                      : Colors.white,
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(20)),
                               child: Form(
                                 key: _formkey,
@@ -141,9 +132,7 @@ class _SignUpState extends State<SignUp> {
                                                   .height /
                                               35),
                                       Text('Sign up',
-                                          style: themeState.getDarkTheme
-                                              ? AppWidget.largeDark()
-                                              : AppWidget.largeLight()),
+                                          style: AppWidget.largeLight()),
                                       SizedBox(
                                           height: MediaQuery.of(context)
                                                   .size
@@ -194,10 +183,8 @@ class _SignUpState extends State<SignUp> {
                                           await signup();
                                         },
                                         child: Material(
-                                          elevation: 6,
-                                          shadowColor: themeState.getDarkTheme
-                                              ? Colors.white
-                                              : Colors.black,
+                                          elevation: 10.0,
+                                          shadowColor: Colors.black,
                                           borderRadius:
                                               BorderRadius.circular(20.0),
                                           child: Container(
@@ -207,19 +194,14 @@ class _SignUpState extends State<SignUp> {
                                                     .width /
                                                 2.1,
                                             decoration: BoxDecoration(
-                                                color: themeState.getDarkTheme
-                                                    ? Colors.white
-                                                    : Colors.black,
+                                                color: Colors.white,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         20.0)),
-                                            child: Center(
-                                              child: Text('Sign up',
+                                            child: const Center(
+                                              child: Text('Sign Up',
                                                   style: TextStyle(
-                                                      color: themeState
-                                                              .getDarkTheme
-                                                          ? Colors.black
-                                                          : Colors.white,
+                                                      color: Colors.black,
                                                       fontSize: 18.0,
                                                       fontWeight:
                                                           FontWeight.bold)),
@@ -248,9 +230,7 @@ class _SignUpState extends State<SignUp> {
                                       builder: (context) => const Login()));
                             },
                             child: Text('Already have an account? Login',
-                                style: themeState.getDarkTheme
-                                    ? AppWidget.platesDark()
-                                    : AppWidget.platesLight()),
+                                style: AppWidget.platesLight()),
                           ),
                         ],
                       ),

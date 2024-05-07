@@ -81,7 +81,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: isLoading == true
@@ -97,18 +96,15 @@ class _LoginState extends State<Login> {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height / 2),
+                          top: MediaQuery.of(context).size.height / 2.8),
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: themeState.getDarkTheme
-                            ? Colors.black
-                            : Colors.white,
-                      ),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(40)),
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                        // top: MediaQuery.of(context).size.height / 13,
                         left: MediaQuery.of(context).size.width / 13,
                         right: MediaQuery.of(context).size.width / 13,
                       ),
@@ -129,11 +125,9 @@ class _LoginState extends State<Login> {
                                 height:
                                     MediaQuery.of(context).size.height / 18),
                             Material(
-                              elevation: 5.0,
+                              elevation: 10.0,
                               borderRadius: BorderRadius.circular(20),
-                              shadowColor: themeState.getDarkTheme
-                                  ? Colors.white
-                                  : Colors.black,
+                              shadowColor: Colors.black,
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20.0),
@@ -141,9 +135,7 @@ class _LoginState extends State<Login> {
                                 height:
                                     MediaQuery.of(context).size.height / 2.0,
                                 decoration: BoxDecoration(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.black
-                                        : Colors.white,
+                                    color: Colors.white,
                                     borderRadius: BorderRadius.circular(20)),
                                 child: SingleChildScrollView(
                                   child: Column(
@@ -154,9 +146,7 @@ class _LoginState extends State<Login> {
                                                   .height /
                                               35),
                                       Text('Login',
-                                          style: themeState.getDarkTheme
-                                              ? AppWidget.largeDark()
-                                              : AppWidget.largeLight()),
+                                          style: AppWidget.largeLight()),
                                       SizedBox(
                                           height: MediaQuery.of(context)
                                                   .size
@@ -201,9 +191,7 @@ class _LoginState extends State<Login> {
                                           alignment: Alignment.topRight,
                                           child: Text(
                                             'Forget Password ?',
-                                            style: themeState.getDarkTheme
-                                                ? AppWidget.platesDark()
-                                                : AppWidget.platesLight(),
+                                            style: AppWidget.platesLight(),
                                           ),
                                         ),
                                       ),
@@ -217,10 +205,8 @@ class _LoginState extends State<Login> {
                                           await login();
                                         },
                                         child: Material(
-                                          elevation: 6,
-                                          shadowColor: themeState.getDarkTheme
-                                              ? Colors.white
-                                              : Colors.black,
+                                          elevation: 10.0,
+                                          shadowColor: Colors.black,
                                           borderRadius:
                                               BorderRadius.circular(20.0),
                                           child: Container(
@@ -230,20 +216,15 @@ class _LoginState extends State<Login> {
                                                     .width /
                                                 2.1,
                                             decoration: BoxDecoration(
-                                                color: themeState.getDarkTheme
-                                                    ? Colors.white
-                                                    : Colors.black,
+                                                color: Colors.white,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         20.0)),
-                                            child: Center(
+                                            child: const Center(
                                               child: Text(
                                                 'LOGIN',
                                                 style: TextStyle(
-                                                    color:
-                                                        themeState.getDarkTheme
-                                                            ? Colors.black
-                                                            : Colors.white,
+                                                    color: Colors.black,
                                                     fontSize: 18.0,
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -273,9 +254,7 @@ class _LoginState extends State<Login> {
                                         builder: (context) => const SignUp()));
                               },
                               child: Text('Don\'t have an account? Sign up',
-                                  style: themeState.getDarkTheme
-                                      ? AppWidget.platesDark()
-                                      : AppWidget.platesLight()),
+                                  style: AppWidget.platesLight()),
                             ),
                             SizedBox(
                                 height:
@@ -289,9 +268,7 @@ class _LoginState extends State<Login> {
                                             const AdminLogin()));
                               },
                               child: Text('Login As admin',
-                                  style: themeState.getDarkTheme
-                                      ? AppWidget.platesDark()
-                                      : AppWidget.platesLight()),
+                                  style: AppWidget.platesLight()),
                             ),
                           ],
                         ),

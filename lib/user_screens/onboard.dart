@@ -31,8 +31,6 @@ class _OnboardState extends State<Onboard> {
 
   @override
   Widget build(BuildContext context) {
-    final themeState = Provider.of<DarkThemeProvider>(context);
-
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,16 +54,12 @@ class _OnboardState extends State<Onboard> {
                           child: Image.asset(
                             contents[i].image,
                             height: 380,
-                            // width: MediaQuery.of(context).size.width / 1.3,
                             width: 330,
                             fit: BoxFit.fill,
                           ),
                         ),
                         const SizedBox(height: 20.0),
-                        Text(contents[i].title,
-                            style: themeState.getDarkTheme
-                                ? AppWidget.platesDark()
-                                : AppWidget.platesLight()),
+                        Text(contents[i].title, style: AppWidget.platesLight()),
                         const SizedBox(height: 20.0),
                       ],
                     ),
@@ -82,8 +76,7 @@ class _OnboardState extends State<Onboard> {
                 margin: const EdgeInsets.only(right: 5),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    color:
-                        themeState.getDarkTheme ? Colors.white : Colors.black),
+                    color: Colors.black),
               ),
             ),
           ),
@@ -101,10 +94,7 @@ class _OnboardState extends State<Onboard> {
               decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(
-                      color: themeState.getDarkTheme
-                          ? Colors.white
-                          : Colors.black)),
+                  border: Border.all(color: Colors.black)),
               height: 60,
               margin: const EdgeInsets.all(60.0),
               width: 300,
