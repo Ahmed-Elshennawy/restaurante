@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurante/ApiFiles/api_link.dart';
 import 'package:restaurante/components/edit_wallet.dart';
+import 'package:restaurante/main.dart';
 import '../widgets/dark_theme_provider.dart';
 import '../widgets/reused.dart';
 import '../widgets/provider.dart';
@@ -14,20 +16,45 @@ class Order extends StatefulWidget {
 }
 
 class _OrderState extends State<Order> {
-  String calculateTotalPrice() {
-    double totalPrice = 0;
-    for (CartItem item in cart) {
-      totalPrice += item.price * item.quantity;
-    }
-    return totalPrice.toStringAsFixed(2);
+  @override
+  void initState() {
+    super.initState();
+    getOrders();
   }
 
-  int calculateTotalItems() {
-    int items = 0;
-    for (CartItem item in cart) {
-      items += item.quantity;
+  List<dynamic> selectedOrders = [];
+  getOrders() async {
+    var response = await crud.postRequest(linkorderView, {
+      "id": sharedPref.getString("id"),
+    });
+
+    if (response['status'] == 'success') {
+      setState(() {
+        selectedOrders = response['data'];
+      });
+    } else {
+      print("cart is empty");
     }
-    return items;
+  }
+
+  deleteOrder(int index) async {
+    var response = await crud.postRequest(linkorderDelete, {
+      "id": index,
+    });
+
+    if (response['status'] == 'success') {
+      print("success");
+    } else {
+      print("fail");
+    }
+  }
+
+  String calculateTotalPrice() {
+    double totalPrice = 0;
+    for (dynamic item in selectedOrders) {
+      totalPrice += item['order_price'] * item['order_quantity'];
+    }
+    return totalPrice.toStringAsFixed(2);
   }
 
   @override
@@ -55,31 +82,13 @@ class _OrderState extends State<Order> {
                 ),
               ),
             ),
-            const SizedBox(height: 20.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Total Meals',
-                  style: themeState.getDarkTheme
-                      ? AppWidget.platesDark()
-                      : AppWidget.platesLight(),
-                ),
-                const SizedBox(width: 20.0),
-                Text(
-                  '${calculateTotalItems()}',
-                  style: themeState.getDarkTheme
-                      ? AppWidget.platesDark()
-                      : AppWidget.platesLight(),
-                ),
-              ],
-            ),
             Expanded(
               child: ListView.builder(
-                itemCount: cart.length,
+                itemCount: selectedOrders.length,
                 itemBuilder: (context, index) {
+                  final item = selectedOrders[index];
                   return Dismissible(
-                    key: Key(cart[index].name),
+                    key: Key(item['order_name']),
                     background: Container(
                       color: const Color.fromARGB(255, 115, 76, 74),
                       alignment: Alignment.centerRight,
@@ -92,7 +101,8 @@ class _OrderState extends State<Order> {
                     ),
                     onDismissed: (direction) {
                       setState(() {
-                        cart.removeAt(index);
+                        deleteOrder(selectedOrders[index]['id']);
+                        selectedOrders.remove(index);
                       });
                     },
                     direction: DismissDirection.endToStart,
@@ -125,7 +135,7 @@ class _OrderState extends State<Order> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    cart[index].quantity.toString(),
+                                    item['order_quantity'].toString(),
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         color: themeState.getDarkTheme
@@ -138,7 +148,7 @@ class _OrderState extends State<Order> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(60.0),
                                 child: Image.network(
-                                  cart[index].image,
+                                  item['order_image'],
                                   height: 95,
                                   width: 95,
                                   fit: BoxFit.cover,
@@ -149,13 +159,13 @@ class _OrderState extends State<Order> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    cart[index].name,
+                                    item['order_name'],
                                     style: themeState.getDarkTheme
                                         ? AppWidget.platesDark()
                                         : AppWidget.platesLight(),
                                   ),
                                   Text(
-                                    '\$${cart[index].price.toStringAsFixed(2)}',
+                                    '\$${item['order_price'].toStringAsFixed(2)}',
                                     style: themeState.getDarkTheme
                                         ? AppWidget.platesDark()
                                         : AppWidget.platesLight(),

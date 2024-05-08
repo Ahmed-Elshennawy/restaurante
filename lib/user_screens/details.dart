@@ -1,10 +1,13 @@
+import 'package:restaurante/ApiFiles/api_link.dart';
+import 'package:restaurante/ApiFiles/crud.dart';
+import 'package:restaurante/main.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/dark_theme_provider.dart';
 
-class CartItem {
+class  CartItem {
   final String name;
   final String detail;
   final double price;
@@ -22,7 +25,7 @@ class CartItem {
   });
 }
 
-List<CartItem> cart = [];
+List<dynamic> cart = [];
 
 class Details extends StatefulWidget {
   const Details({
@@ -47,6 +50,43 @@ class _DetailsState extends State<Details> {
   void initState() {
     super.initState();
     total = double.parse(widget.price);
+  }
+
+  Crud crud = Crud();
+  bool isLoading = false;
+  addOrder() async {
+    isLoading = true;
+    setState(() {});
+    var response = await crud.postRequest(linkorderAdd, {
+      "order_name": widget.name,
+      "order_detail": widget.detail,
+      "file": widget.image,
+      "id": sharedPref.getString("id"),
+      "order_price": widget.price.toString(),
+      "order_quantity": itemNumbers.toString(),
+      "order_time": widget.time.toString(),
+    });
+
+    isLoading = false;
+    setState(() {});
+
+    if (response['status'] == 'success') {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil("navigation", (route) => false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(milliseconds: 800),
+          backgroundColor: Colors.black,
+          content: Text(
+            'Food Added to Cart',
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ),
+      );
+    } else {
+      // ignore: avoid_print
+      print("failed to add order");
+    }
   }
 
   @override
@@ -185,7 +225,8 @@ class _DetailsState extends State<Details> {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      await addOrder();
                       CartItem item = CartItem(
                         name: widget.name,
                         detail: widget.detail,
@@ -195,17 +236,6 @@ class _DetailsState extends State<Details> {
                         time: widget.time,
                       );
                       cart.add(item);
-                      // addOrder(cart);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          duration: Duration(milliseconds: 800),
-                          backgroundColor: Colors.black,
-                          content: Text(
-                            'Food Added to Cart',
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                        ),
-                      );
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),

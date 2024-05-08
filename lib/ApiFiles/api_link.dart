@@ -14,7 +14,6 @@ String linkResetPassword = "$linkServerName/auth/resetPass.php";
 // order
 String linkorderAdd = "$linkServerName/orders/add.php";
 String linkorderView = "$linkServerName/orders/view.php";
-String linkImageOrderRoot = "http://$platform/ApiPHPfiles/orders/upload";
 
 String linkorderDelete = "$linkServerName/orders/delete.php";
 String linkorderEdit = "$linkServerName/orders/edit.php";

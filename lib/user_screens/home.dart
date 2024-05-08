@@ -122,7 +122,6 @@ class _HomeState extends State<Home> {
                   child: SwitchListTile(
                     onChanged: (bool value) {
                       themeState.setDarkTheme = value;
-                      print(value);
                       editTheme(value);
                     },
                     value: themeState.getDarkTheme,
