@@ -356,7 +356,7 @@ class _ProfileState extends State<Profile> {
             ),
             const SizedBox(height: 20.0),
             GestureDetector(
-              onTap: () async {
+              onTap: () {
                 Navigator.of(context)
                     .pushNamedAndRemoveUntil("home_admin", (route) => false);
               },

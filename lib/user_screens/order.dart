@@ -92,13 +92,16 @@ class _OrderState extends State<Order> {
                   return Dismissible(
                     key: Key(item['order_name']),
                     background: Container(
-                      color: const Color.fromARGB(255, 115, 76, 74),
                       alignment: Alignment.centerRight,
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       margin: const EdgeInsets.symmetric(vertical: 4.0),
                       child: const Padding(
                         padding: EdgeInsets.only(right: 20.0),
-                        child: Icon(Icons.delete, color: Colors.white),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                          size: 35,
+                        ),
                       ),
                     ),
                     onDismissed: (direction) {

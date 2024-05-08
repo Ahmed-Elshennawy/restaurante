@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurante/ApiFiles/api_link.dart';
 import 'package:restaurante/ApiFiles/crud.dart';
 import 'package:restaurante/components/edit_theme.dart';
+import 'package:restaurante/main.dart';
 import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'details.dart';
@@ -100,15 +101,35 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Restaurante',
-                style: themeState.getDarkTheme
-                    ? AppWidget.titleNameDark()
-                    : AppWidget.titleNameLight(),
+              Row(
+                children: [
+                  Text(
+                    'Restaurante',
+                    style: themeState.getDarkTheme
+                        ? AppWidget.titleNameDark()
+                        : AppWidget.titleNameLight(),
+                  ),
+                  const Spacer(),
+                  sharedPref.getString("email") == "admin@gmail.com"
+                      ? InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                "home_admin", (route) => false);
+                          },
+                          child: Icon(
+                            Icons.admin_panel_settings,
+                            size: 40,
+                            color: themeState.getDarkTheme
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        )
+                      : const Text(''),
+                ],
               ),
               const SizedBox(height: 20.0),
               Material(
-                elevation: 10.0,
+                elevation: 5.0,
                 shadowColor:
                     themeState.getDarkTheme ? Colors.white : Colors.black,
                 borderRadius: BorderRadius.circular(10),
@@ -156,12 +177,9 @@ class _HomeState extends State<Home> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: categoryImages.entries.map((entry) {
-                    final category = entry.key;
-                    final imagePath = entry.value;
-
+                  children: categoryImages.entries.map((icon) {
+                    final category = icon.key;
+                    final imagePath = icon.value;
                     return GestureDetector(
                       onTap: () {
                         setState(() {
@@ -209,97 +227,232 @@ class _HomeState extends State<Home> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final item = selectedList[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Details(
-                            image: "$linkImageItemRoot/${item["item_image"]}",
-                            name: item['item_name'],
-                            detail: item['item_detail'],
-                            price: item['item_price'].toString(),
-                            time: item['item_time'].toString(),
+                  return sharedPref.getString("email") == "admin@gmail.com"
+                      ? Dismissible(
+                          key: Key(item['item_name']),
+                          background: Container(
+                            alignment: Alignment.centerRight,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            margin: const EdgeInsets.symmetric(vertical: 4.0),
+                            child: const Padding(
+                              padding: EdgeInsets.only(right: 20.0),
+                              child: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                                size: 35,
+                              ),
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: Expanded(
-                      child: Column(
-                        children: [
-                          Material(
-                            elevation: 10.0,
-                            shadowColor: themeState.getDarkTheme
-                                ? Colors.white
-                                : Colors.black,
-                            borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              padding: const EdgeInsets.all(5),
-                              margin: const EdgeInsets.all(5),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          onDismissed: (direction) {
+                            setState(() {
+                              selectedList.removeAt(index);
+                            });
+                          },
+                          direction: DismissDirection.endToStart,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Details(
+                                    image:
+                                        "$linkImageItemRoot/${item["item_image"]}",
+                                    name: item['item_name'],
+                                    detail: item['item_detail'],
+                                    price: item['item_price'].toString(),
+                                    time: item['item_time'].toString(),
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Expanded(
+                              child: Column(
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.network(
-                                      "$linkImageItemRoot/${item["item_image"]}",
-                                      height: 105.0,
-                                      width: 105.0,
-                                      fit: BoxFit.cover,
+                                  Material(
+                                    elevation: 5.0,
+                                    shadowColor: themeState.getDarkTheme
+                                        ? Colors.white
+                                        : Colors.black,
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(5),
+                                      margin: const EdgeInsets.all(5),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            child: Image.network(
+                                              "$linkImageItemRoot/${item["item_image"]}",
+                                              height: 105.0,
+                                              width: 105.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 15.0),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                2,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  item['item_name'],
+                                                  style: themeState.getDarkTheme
+                                                      ? AppWidget.platesDark()
+                                                      : AppWidget.platesLight(),
+                                                ),
+                                                Text(
+                                                  item['item_detail'],
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: themeState.getDarkTheme
+                                                      ? AppWidget.infoDark()
+                                                      : AppWidget.infoLight(),
+                                                ),
+                                                const SizedBox(height: 15),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      "${item['item_time'].toString()} \$",
+                                                      style: themeState
+                                                              .getDarkTheme
+                                                          ? AppWidget
+                                                              .platesDark()
+                                                          : AppWidget
+                                                              .platesLight(),
+                                                    ),
+                                                    const SizedBox(width: 30),
+                                                    Text(
+                                                      "${item['item_price'].toString()} mins",
+                                                      style: themeState
+                                                              .getDarkTheme
+                                                          ? AppWidget
+                                                              .platesDark()
+                                                          : AppWidget
+                                                              .platesLight(),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  const SizedBox(width: 15.0),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    child: Column(
+                                  const SizedBox(height: 20),
+                                ],
+                              ),
+                            ),
+                          ))
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Details(
+                                  image:
+                                      "$linkImageItemRoot/${item["item_image"]}",
+                                  name: item['item_name'],
+                                  detail: item['item_detail'],
+                                  price: item['item_price'].toString(),
+                                  time: item['item_time'].toString(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Expanded(
+                            child: Column(
+                              children: [
+                                Material(
+                                  elevation: 5.0,
+                                  shadowColor: themeState.getDarkTheme
+                                      ? Colors.white
+                                      : Colors.black,
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    margin: const EdgeInsets.all(5),
+                                    child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          item['item_name'],
-                                          style: themeState.getDarkTheme
-                                              ? AppWidget.platesDark()
-                                              : AppWidget.platesLight(),
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          child: Image.network(
+                                            "$linkImageItemRoot/${item["item_image"]}",
+                                            height: 105.0,
+                                            width: 105.0,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                        Text(
-                                          item['item_detail'],
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: themeState.getDarkTheme
-                                              ? AppWidget.infoDark()
-                                              : AppWidget.infoLight(),
-                                        ),
-                                        const SizedBox(height: 15),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "${item['item_time'].toString()} \$",
-                                              style: themeState.getDarkTheme
-                                                  ? AppWidget.platesDark()
-                                                  : AppWidget.platesLight(),
-                                            ),
-                                            const SizedBox(width: 30),
-                                            Text(
-                                              "${item['item_price'].toString()} mins",
-                                              style: themeState.getDarkTheme
-                                                  ? AppWidget.platesDark()
-                                                  : AppWidget.platesLight(),
-                                            ),
-                                          ],
+                                        const SizedBox(width: 15.0),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                item['item_name'],
+                                                style: themeState.getDarkTheme
+                                                    ? AppWidget.platesDark()
+                                                    : AppWidget.platesLight(),
+                                              ),
+                                              Text(
+                                                item['item_detail'],
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: themeState.getDarkTheme
+                                                    ? AppWidget.infoDark()
+                                                    : AppWidget.infoLight(),
+                                              ),
+                                              const SizedBox(height: 15),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "${item['item_time'].toString()} \$",
+                                                    style: themeState
+                                                            .getDarkTheme
+                                                        ? AppWidget.platesDark()
+                                                        : AppWidget
+                                                            .platesLight(),
+                                                  ),
+                                                  const SizedBox(width: 30),
+                                                  Text(
+                                                    "${item['item_price'].toString()} mins",
+                                                    style: themeState
+                                                            .getDarkTheme
+                                                        ? AppWidget.platesDark()
+                                                        : AppWidget
+                                                            .platesLight(),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                const SizedBox(height: 20),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
-                  );
+                        );
                 },
               ),
               const SizedBox(height: 15.0),
