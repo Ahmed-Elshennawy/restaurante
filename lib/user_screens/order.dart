@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurante/ApiFiles/api_link.dart';
@@ -102,7 +104,7 @@ class _OrderState extends State<Order> {
                     onDismissed: (direction) {
                       setState(() {
                         deleteOrder(selectedOrders[index]['id']);
-                        selectedOrders.remove(index);
+                        selectedOrders.removeAt(index);
                       });
                     },
                     direction: DismissDirection.endToStart,

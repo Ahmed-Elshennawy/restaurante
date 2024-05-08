@@ -224,82 +224,80 @@ class _HomeState extends State<Home> {
                         ),
                       );
                     },
-                    child: Column(
-                      children: [
-                        Material(
-                          elevation: 10.0,
-                          shadowColor: themeState.getDarkTheme
-                              ? Colors.white
-                              : Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            margin: const EdgeInsets.all(5),
-                            child: Stack(
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                        "$linkImageItemRoot/${item["item_image"]}",
-                                        height: 105.0,
-                                        width: 105.0,
-                                        fit: BoxFit.cover,
-                                      ),
+                    child: Expanded(
+                      child: Column(
+                        children: [
+                          Material(
+                            elevation: 10.0,
+                            shadowColor: themeState.getDarkTheme
+                                ? Colors.white
+                                : Colors.black,
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              margin: const EdgeInsets.all(5),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(
+                                      "$linkImageItemRoot/${item["item_image"]}",
+                                      height: 105.0,
+                                      width: 105.0,
+                                      fit: BoxFit.cover,
                                     ),
-                                    const SizedBox(width: 15.0),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 2,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            item['item_name'],
-                                            style: themeState.getDarkTheme
-                                                ? AppWidget.platesDark()
-                                                : AppWidget.platesLight(),
-                                          ),
-                                          Text(
-                                            item['item_detail'],
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: themeState.getDarkTheme
-                                                ? AppWidget.infoDark()
-                                                : AppWidget.infoLight(),
-                                          ),
-                                          const SizedBox(height: 15),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "${item['item_time'].toString()} \$",
-                                                style: themeState.getDarkTheme
-                                                    ? AppWidget.platesDark()
-                                                    : AppWidget.platesLight(),
-                                              ),
-                                              const SizedBox(width: 30),
-                                              Text(
-                                                "${item['item_price'].toString()} mins",
-                                                style: themeState.getDarkTheme
-                                                    ? AppWidget.platesDark()
-                                                    : AppWidget.platesLight(),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                  ),
+                                  const SizedBox(width: 15.0),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item['item_name'],
+                                          style: themeState.getDarkTheme
+                                              ? AppWidget.platesDark()
+                                              : AppWidget.platesLight(),
+                                        ),
+                                        Text(
+                                          item['item_detail'],
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: themeState.getDarkTheme
+                                              ? AppWidget.infoDark()
+                                              : AppWidget.infoLight(),
+                                        ),
+                                        const SizedBox(height: 15),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "${item['item_time'].toString()} \$",
+                                              style: themeState.getDarkTheme
+                                                  ? AppWidget.platesDark()
+                                                  : AppWidget.platesLight(),
+                                            ),
+                                            const SizedBox(width: 30),
+                                            Text(
+                                              "${item['item_price'].toString()} mins",
+                                              style: themeState.getDarkTheme
+                                                  ? AppWidget.platesDark()
+                                                  : AppWidget.platesLight(),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   );
                 },

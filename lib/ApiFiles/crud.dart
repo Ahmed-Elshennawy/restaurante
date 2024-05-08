@@ -26,7 +26,7 @@ class Crud {
   }
 
   postRequest(String url, Map data) async {
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     try {
       var response =
           await http.post(Uri.parse(url), body: data, headers: myheaders);

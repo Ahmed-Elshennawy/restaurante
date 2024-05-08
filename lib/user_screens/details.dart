@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'package:restaurante/ApiFiles/api_link.dart';
 import 'package:restaurante/ApiFiles/crud.dart';
 import 'package:restaurante/main.dart';
@@ -7,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../widgets/dark_theme_provider.dart';
 
-class  CartItem {
+class CartItem {
   final String name;
   final String detail;
   final double price;
@@ -84,7 +86,6 @@ class _DetailsState extends State<Details> {
         ),
       );
     } else {
-      // ignore: avoid_print
       print("failed to add order");
     }
   }
@@ -251,8 +252,8 @@ class _DetailsState extends State<Details> {
                       child: const Row(
                         children: [
                           Text('Add to cart',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18)),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18)),
                           SizedBox(width: 10.0),
                           Icon(
                             Icons.shopping_cart_outlined,
