@@ -1,3 +1,4 @@
+import 'package:restaurante/admin_screens/admin_item_page.dart';
 import 'package:restaurante/user_screens/navigation.dart';
 import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
@@ -119,6 +120,58 @@ class _HomeAdminState extends State<HomeAdmin> {
                         children: [
                           Text(
                             'Home Page',
+                            style: TextStyle(
+                              color: themeState.getDarkTheme
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AdminItemPage()));
+              },
+              child: Material(
+                borderRadius: BorderRadius.circular(10.0),
+                elevation: 5.0,
+                shadowColor:
+                    themeState.getDarkTheme ? Colors.white : Colors.black,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15.0,
+                    horizontal: 10.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color:
+                        themeState.getDarkTheme ? Colors.black : Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.edit,
+                        color: themeState.getDarkTheme
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                      const SizedBox(width: 20.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Page Edit Item',
                             style: TextStyle(
                               color: themeState.getDarkTheme
                                   ? Colors.white

@@ -1,3 +1,4 @@
+import 'package:restaurante/admin_screens/admin_item_page.dart';
 import 'package:restaurante/user_screens/home.dart';
 import 'package:restaurante/admin_screens/home_admin.dart';
 import 'package:restaurante/user_screens/navigation.dart';
@@ -62,6 +63,7 @@ class _MyAppState extends State<MyApp> {
               'signup': (context) => const SignUp(),
               'home': (context) => const Home(),
               'home_admin': (context) => const HomeAdmin(),
+              'admin_item_page': (context) => const AdminItemPage(),
             },
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
             home: const Onboard(),

@@ -23,6 +23,8 @@ String linkorderEdit = "$linkServerName/orders/edit.php";
 
 String linkitemAdd = "$linkServerName/items/add.php";
 String linkitemView = "$linkServerName/items/view.php";
+String linkitemDelete = "$linkServerName/items/Delete.php";
+String linkitemEdit = "$linkServerName/items/Edit.php";
 String linkImageItemRoot = "http://$platform/ApiPHPfiles/items/upload";
 
 // wallet

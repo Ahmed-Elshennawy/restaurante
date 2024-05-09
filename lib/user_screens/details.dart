@@ -252,8 +252,8 @@ class _DetailsState extends State<Details> {
                       child: const Row(
                         children: [
                           Text('Add to cart',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18)),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18)),
                           SizedBox(width: 10.0),
                           Icon(
                             Icons.shopping_cart_outlined,

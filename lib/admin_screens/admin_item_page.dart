@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurante/ApiFiles/api_link.dart';
 import 'package:restaurante/ApiFiles/crud.dart';
+import 'package:restaurante/admin_screens/edit_food.dart';
 import 'package:restaurante/components/edit_theme.dart';
 import 'package:restaurante/main.dart';
 import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:restaurante/widgets/reused.dart';
-import 'details.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class AdminItemPage extends StatefulWidget {
+  const AdminItemPage({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<AdminItemPage> createState() => _AdminItemPageState();
 }
 
-class _HomeState extends State<Home> {
+class _AdminItemPageState extends State<AdminItemPage> {
   int? selectedOurCategory;
   List<dynamic> selectedList = [];
   List<dynamic> ourpizza = [];
@@ -174,20 +174,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20.0),
-              Text(
-                'Our Food',
-                style: themeState.getDarkTheme
-                    ? AppWidget.largeDark()
-                    : AppWidget.largeLight(),
-              ),
-              Text(
-                'Enjoy Our Delicious Food',
-                style: themeState.getDarkTheme
-                    ? AppWidget.infoDark()
-                    : AppWidget.infoLight(),
-              ),
-              const SizedBox(height: 15.0),
+              const SizedBox(height: 45.0),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -270,7 +257,7 @@ class _HomeState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Details(
+                                  builder: (context) => EditFood(
                                     image:
                                         "$linkImageItemRoot/${item["item_image"]}",
                                     name: item['item_name'],
@@ -368,7 +355,7 @@ class _HomeState extends State<Home> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Details(
+                                builder: (context) => EditFood(
                                   image:
                                       "$linkImageItemRoot/${item["item_image"]}",
                                   name: item['item_name'],
