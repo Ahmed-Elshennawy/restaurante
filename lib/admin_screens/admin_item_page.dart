@@ -1,9 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurante/ApiFiles/api_link.dart';
 import 'package:restaurante/ApiFiles/crud.dart';
 import 'package:restaurante/admin_screens/edit_food.dart';
-import 'package:restaurante/components/edit_theme.dart';
 import 'package:restaurante/main.dart';
 import 'package:restaurante/widgets/dark_theme_provider.dart';
 import 'package:restaurante/widgets/reused.dart';
@@ -71,10 +72,8 @@ class _AdminItemPageState extends State<AdminItemPage> {
     });
 
     if (response['status'] == 'success') {
-      // ignore: avoid_print
       print("success");
     } else {
-      // ignore: avoid_print
       print("fail");
     }
   }
@@ -141,40 +140,20 @@ class _AdminItemPageState extends State<AdminItemPage> {
                       : const Text(''),
                 ],
               ),
-              const SizedBox(height: 20.0),
-              Material(
-                elevation: 5.0,
-                shadowColor:
-                    themeState.getDarkTheme ? Colors.white : Colors.black,
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                  padding: const EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    color:
-                        themeState.getDarkTheme ? Colors.black : Colors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: SwitchListTile(
-                    onChanged: (bool value) {
-                      themeState.setDarkTheme = value;
-                      editTheme(value);
-                    },
-                    value: themeState.getDarkTheme,
-                    title: Text(
-                      'Dark Mode',
-                      style: themeState.getDarkTheme
-                          ? AppWidget.platesDark()
-                          : AppWidget.platesLight(),
-                    ),
-                    secondary: themeState.getDarkTheme
-                        ? const Icon(Icons.light_mode_outlined,
-                            color: Colors.white)
-                        : const Icon(Icons.dark_mode_outlined,
-                            color: Colors.black),
-                  ),
-                ),
+              const SizedBox(height: 30.0),
+              Text(
+                'Edit Food',
+                style: themeState.getDarkTheme
+                    ? AppWidget.largeDark()
+                    : AppWidget.largeLight(),
               ),
-              const SizedBox(height: 45.0),
+              Text(
+                'Make Alters on Food.',
+                style: themeState.getDarkTheme
+                    ? AppWidget.infoDark()
+                    : AppWidget.infoLight(),
+              ),
+              const SizedBox(height: 30.0),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -221,152 +200,54 @@ class _AdminItemPageState extends State<AdminItemPage> {
                   }).toList(),
                 ),
               ),
-              const SizedBox(height: 20.0),
               ListView.builder(
                 itemCount: selectedList.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final item = selectedList[index];
-                  return sharedPref.getString("email") == "admin@gmail.com"
-                      ? Dismissible(
-                          key: Key(item['item_name']),
-                          background: Container(
-                            alignment: Alignment.centerRight,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            margin: const EdgeInsets.symmetric(vertical: 4.0),
-                            child: const Padding(
-                              padding: EdgeInsets.only(right: 20.0),
-                              child: Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                                size: 35,
-                              ),
+                  return Dismissible(
+                    key: Key(item['item_name']),
+                    background: Container(
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      margin: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: const Padding(
+                        padding: EdgeInsets.only(right: 20.0),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                          size: 35,
+                        ),
+                      ),
+                    ),
+                    onDismissed: (direction) {
+                      setState(() {
+                        deleteItem(item['id'].toString());
+                        selectedList.removeAt(index);
+                      });
+                    },
+                    direction: DismissDirection.endToStart,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditFood(
+                              image: "$linkImageItemRoot/${item["item_image"]}",
+                              name: item['item_name'],
+                              detail: item['item_detail'],
+                              price: item['item_price'].toString(),
+                              time: item['item_time'].toString(),
+                              category: item['item_category'].toString(),
                             ),
                           ),
-                          onDismissed: (direction) {
-                            setState(() {
-                              deleteItem(item['id'].toString());
-                              selectedList.removeAt(index);
-                            });
-                          },
-                          direction: DismissDirection.endToStart,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EditFood(
-                                    image:
-                                        "$linkImageItemRoot/${item["item_image"]}",
-                                    name: item['item_name'],
-                                    detail: item['item_detail'],
-                                    price: item['item_price'].toString(),
-                                    time: item['item_time'].toString(),
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Column(
-                              children: [
-                                Material(
-                                  elevation: 5.0,
-                                  shadowColor: themeState.getDarkTheme
-                                      ? Colors.white
-                                      : Colors.black,
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(5),
-                                    margin: const EdgeInsets.all(5),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          child: Image.network(
-                                            "$linkImageItemRoot/${item["item_image"]}",
-                                            height: 105.0,
-                                            width: 105.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 15.0),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              2,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                item['item_name'],
-                                                style: themeState.getDarkTheme
-                                                    ? AppWidget.platesDark()
-                                                    : AppWidget.platesLight(),
-                                              ),
-                                              Text(
-                                                item['item_detail'],
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: themeState.getDarkTheme
-                                                    ? AppWidget.infoDark()
-                                                    : AppWidget.infoLight(),
-                                              ),
-                                              const SizedBox(height: 15),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    "${item['item_price'].toString()} \$",
-                                                    style: themeState
-                                                            .getDarkTheme
-                                                        ? AppWidget.platesDark()
-                                                        : AppWidget
-                                                            .platesLight(),
-                                                  ),
-                                                  const SizedBox(width: 30),
-                                                  Text(
-                                                    "${item['item_time'].toString()} mins",
-                                                    style: themeState
-                                                            .getDarkTheme
-                                                        ? AppWidget.platesDark()
-                                                        : AppWidget
-                                                            .platesLight(),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                              ],
-                            ),
-                          ))
-                      : GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditFood(
-                                  image:
-                                      "$linkImageItemRoot/${item["item_image"]}",
-                                  name: item['item_name'],
-                                  detail: item['item_detail'],
-                                  price: item['item_price'].toString(),
-                                  time: item['item_time'].toString(),
-                                ),
-                              ),
-                            );
-                          },
-                          child: Column(
+                        );
+                      },
+                      child: Stack(
+                        alignment: Alignment.centerRight,
+                        children: [
+                          Column(
                             children: [
                               Material(
                                 elevation: 5.0,
@@ -417,14 +298,14 @@ class _AdminItemPageState extends State<AdminItemPage> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  "${item['item_time'].toString()} \$",
+                                                  "${item['item_price'].toString()} \$",
                                                   style: themeState.getDarkTheme
                                                       ? AppWidget.platesDark()
                                                       : AppWidget.platesLight(),
                                                 ),
                                                 const SizedBox(width: 30),
                                                 Text(
-                                                  "${item['item_price'].toString()} mins",
+                                                  "${item['item_time'].toString()} mins",
                                                   style: themeState.getDarkTheme
                                                       ? AppWidget.platesDark()
                                                       : AppWidget.platesLight(),
@@ -441,7 +322,20 @@ class _AdminItemPageState extends State<AdminItemPage> {
                               const SizedBox(height: 20),
                             ],
                           ),
-                        );
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 25),
+                            child: Icon(
+                              Icons.edit,
+                              size: 30,
+                              color: themeState.getDarkTheme
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 },
               ),
               const SizedBox(height: 15.0),

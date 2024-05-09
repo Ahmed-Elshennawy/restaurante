@@ -6,7 +6,6 @@ import 'package:restaurante/widgets/reused.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/dark_theme_provider.dart';
 import 'dart:io';
 
@@ -17,10 +16,11 @@ class EditFood extends StatefulWidget {
     required this.detail,
     required this.price,
     required this.time,
+    required this.category,
     super.key,
   });
 
-  final String image, name, detail, price, time;
+  final String image, name, detail, price, time, category;
 
   @override
   State<EditFood> createState() => _EditFoodState();
@@ -33,6 +33,43 @@ class _EditFoodState extends State<EditFood> {
   TextEditingController pricecontroller = TextEditingController();
   TextEditingController detailcontroller = TextEditingController();
   TextEditingController timecontroller = TextEditingController();
+
+  valueOfCategory() {
+    switch (widget.category) {
+      case '1':
+        setState(() {
+          value = 'Ice-cream';
+        });
+        break;
+      case '2':
+        setState(() {
+          value = 'Burger';
+        });
+        break;
+      case '3':
+        setState(() {
+          value = 'Salad';
+        });
+        break;
+      case '4':
+        setState(() {
+          value = 'Pizza';
+        });
+        break;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    namecontroller.text = widget.name;
+    pricecontroller.text = widget.price;
+    detailcontroller.text = widget.detail;
+    timecontroller.text = widget.time;
+    valueOfCategory();
+    selectedImage = File(widget.image);
+  }
+
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
   var image;
@@ -44,7 +81,7 @@ class _EditFoodState extends State<EditFood> {
     setState(() {});
   }
 
-  EditItem() async {
+  editItem() async {
     if (image != null) {
       setState(() {
         selectedImage = File(image.path);
@@ -357,7 +394,7 @@ class _EditFoodState extends State<EditFood> {
               Center(
                 child: GestureDetector(
                   onTap: () async {
-                    await EditItem();
+                    await editItem();
                   },
                   child: Material(
                     elevation: 150,
