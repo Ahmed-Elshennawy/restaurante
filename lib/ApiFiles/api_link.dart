@@ -16,6 +16,7 @@ String linkorderAdd = "$linkServerName/orders/add.php";
 String linkorderView = "$linkServerName/orders/view.php";
 
 String linkorderDelete = "$linkServerName/orders/delete.php";
+String linkorderDeleteAll = "$linkServerName/orders/deleteAll.php";
 String linkorderEdit = "$linkServerName/orders/edit.php";
 
 // items

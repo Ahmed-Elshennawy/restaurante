@@ -8,7 +8,6 @@ import 'package:restaurante/main.dart';
 import '../widgets/dark_theme_provider.dart';
 import '../widgets/reused.dart';
 import '../widgets/provider.dart';
-import 'details.dart';
 
 class Order extends StatefulWidget {
   const Order({super.key});
@@ -39,12 +38,25 @@ class _OrderState extends State<Order> {
     }
   }
 
-  deleteOrder(int index) async {
+  deleteOrder(String index) async {
     var response = await crud.postRequest(linkorderDelete, {
       "id": index,
     });
 
     if (response['status'] == 'success') {
+      print("success");
+    } else {
+      print("fail");
+    }
+  }
+
+  deleteAllOrder() async {
+    var response = await crud.postRequest(linkorderDeleteAll, {
+      "id": sharedPref.getString('id'),
+    });
+
+    if (response['status'] == 'success') {
+      
       print("success");
     } else {
       print("fail");
@@ -106,7 +118,7 @@ class _OrderState extends State<Order> {
                     ),
                     onDismissed: (direction) {
                       setState(() {
-                        deleteOrder(selectedOrders[index]['id']);
+                        deleteOrder(selectedOrders[index]['id'].toString());
                         selectedOrders.removeAt(index);
                       });
                     },
@@ -243,7 +255,8 @@ class _OrderState extends State<Order> {
                       backgroundColor: Colors.green,
                     ),
                   );
-                  cart.clear();
+                  selectedOrders.clear();
+                  deleteAllOrder();
                   setState(() {});
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
