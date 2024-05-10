@@ -54,8 +54,11 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Restaurante',
-            initialRoute:
-                sharedPref.getString("id") == null ? "onboard" : "navigation",
+            initialRoute: sharedPref.getString("id") == null
+                ? "onboard"
+                : sharedPref.getString("email") == "admin@gmail.com"
+                    ? "home_admin"
+                    : "navigation",
             routes: {
               'login': (context) => const Login(),
               'navigation': (context) => const Navigation(),

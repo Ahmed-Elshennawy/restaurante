@@ -235,6 +235,82 @@ class _HomeState extends State<Home> {
                 ),
               ),
               const SizedBox(height: 20.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: selectedList.map(
+                    (item) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Details(
+                                        image:
+                                            "$linkImageItemRoot/${item["item_image"]}",
+                                        name: item['item_name'],
+                                        detail: item['item_detail'],
+                                        price: item['item_price'].toString(),
+                                        time: item['item_time'].toString(),
+                                      )));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          child: Material(
+                            borderRadius: BorderRadius.circular(20.0),
+                            elevation: 6,
+                            shadowColor: themeState.getDarkTheme
+                                ? Colors.white
+                                : Colors.black,
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(
+                                        "$linkImageItemRoot/${item["item_image"]}",
+                                        height: 110.0,
+                                        width: 150.0,
+                                        fit: BoxFit.cover),
+                                  ),
+                                  Text(item['item_name'],
+                                      style: themeState.getDarkTheme
+                                          ? AppWidget.platesDark()
+                                          : AppWidget.platesLight()),
+                                  Text(item['item_detail'],
+                                      style: themeState.getDarkTheme
+                                          ? AppWidget.infoDark()
+                                          : AppWidget.infoLight()),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "${item['item_price'].toString()} \$",
+                                        style: themeState.getDarkTheme
+                                            ? AppWidget.platesDark()
+                                            : AppWidget.platesLight(),
+                                      ),
+                                      const SizedBox(width: 30),
+                                      Text(
+                                        "${item['item_time'].toString()} mins",
+                                        style: themeState.getDarkTheme
+                                            ? AppWidget.platesDark()
+                                            : AppWidget.platesLight(),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
               ListView.builder(
                 itemCount: selectedList.length,
                 shrinkWrap: true,

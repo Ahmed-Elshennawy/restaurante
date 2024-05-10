@@ -17,10 +17,11 @@ class EditFood extends StatefulWidget {
     required this.price,
     required this.time,
     required this.category,
+    required this.id,
     super.key,
   });
 
-  final String image, name, detail, price, time, category;
+  final String image, name, detail, price, time, category, id;
 
   @override
   State<EditFood> createState() => _EditFoodState();
@@ -29,6 +30,7 @@ class EditFood extends StatefulWidget {
 class _EditFoodState extends State<EditFood> {
   List<String> items = ['Ice-cream', 'Burger', 'Salad', 'Pizza'];
   String? value;
+  String? itemid;
   TextEditingController namecontroller = TextEditingController();
   TextEditingController pricecontroller = TextEditingController();
   TextEditingController detailcontroller = TextEditingController();
@@ -62,12 +64,13 @@ class _EditFoodState extends State<EditFood> {
   @override
   void initState() {
     super.initState();
+    itemid = widget.id;
     namecontroller.text = widget.name;
     pricecontroller.text = widget.price;
     detailcontroller.text = widget.detail;
     timecontroller.text = widget.time;
     valueOfCategory();
-    selectedImage = File(widget.image);
+    image = widget.image;
   }
 
   final ImagePicker _picker = ImagePicker();
@@ -82,29 +85,22 @@ class _EditFoodState extends State<EditFood> {
   }
 
   editItem() async {
-    if (image != null) {
-      setState(() {
-        selectedImage = File(image.path);
-      });
+    var response = await crud.postRequest(linkitemEdit, {
+      "item_name": namecontroller.text,
+      "item_price": pricecontroller.text,
+      "item_detail": detailcontroller.text,
+      "item_category": (items.indexOf(value!) + 1).toString(),
+      "item_time": timecontroller.text,
+      "id": itemid,
+    });
 
-      var response = await crud.postRequestFile(
-          linkitemEdit,
-          {
-            "item_name": namecontroller.text,
-            "item_price": pricecontroller.text,
-            "item_detail": detailcontroller.text,
-            "item_category": (items.indexOf(value!) + 1).toString(),
-            "item_time": timecontroller.text,
-          },
-          selectedImage!);
-
-      if (response["status"] == "success") {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil("navigation", (route) => false);
-      } else {
-        // ignore: avoid_print
-        print("failed to add item");
-      }
+    if (response["status"] == "success") {
+      print("success");
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil("navigation", (route) => false);
+    } else {
+      // ignore: avoid_print
+      print("failed to Edit item");
     }
   }
 
@@ -149,7 +145,7 @@ class _EditFoodState extends State<EditFood> {
               const SizedBox(height: 20.0),
               GestureDetector(
                 onTap: getImage,
-                child: selectedImage == null
+                child: image == null
                     ? Center(
                         child: Material(
                           elevation: 6.0,
@@ -186,8 +182,8 @@ class _EditFoodState extends State<EditFood> {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20.0),
-                              child: Image.file(
-                                selectedImage!,
+                              child: Image.network(
+                                image!,
                                 fit: BoxFit.cover,
                               ),
                             ),

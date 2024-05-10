@@ -234,6 +234,7 @@ class _AdminItemPageState extends State<AdminItemPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => EditFood(
+                              id: item['id'].toString(),
                               image: "$linkImageItemRoot/${item["item_image"]}",
                               name: item['item_name'],
                               detail: item['item_detail'],
