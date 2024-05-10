@@ -214,7 +214,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                   child: Row(
                     children: [
                       Icon(
-                        Icons.edit,
+                        Icons.person,
                         color: themeState.getDarkTheme
                             ? Colors.white
                             : Colors.black,
@@ -224,7 +224,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Purchased orders',
+                            'Users Orders',
                             style: TextStyle(
                               color: themeState.getDarkTheme
                                   ? Colors.white
