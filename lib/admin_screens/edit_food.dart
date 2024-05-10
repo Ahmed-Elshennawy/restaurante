@@ -95,7 +95,6 @@ class _EditFoodState extends State<EditFood> {
     });
 
     if (response["status"] == "success") {
-      print("success");
       Navigator.of(context)
           .pushNamedAndRemoveUntil("navigation", (route) => false);
     } else {

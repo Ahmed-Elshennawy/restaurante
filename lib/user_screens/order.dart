@@ -56,7 +56,6 @@ class _OrderState extends State<Order> {
     });
 
     if (response['status'] == 'success') {
-      
       print("success");
     } else {
       print("fail");

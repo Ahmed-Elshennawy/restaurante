@@ -19,6 +19,10 @@ String linkorderDelete = "$linkServerName/orders/delete.php";
 String linkorderDeleteAll = "$linkServerName/orders/deleteAll.php";
 String linkorderEdit = "$linkServerName/orders/edit.php";
 
+// Checkout_orders
+String linkchehckorderAdd = "$linkServerName/orders/add.php";
+String linkcheckorderView = "$linkServerName/orders/view.php";
+
 // items
 
 String linkitemAdd = "$linkServerName/items/add.php";

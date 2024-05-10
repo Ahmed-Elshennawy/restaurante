@@ -2,11 +2,11 @@
 
 include '../config/db.php';
 
-$orderid = filterReq("id");
+$itemid = filterReq("id");
 
-$stmt = $con->prepare("DELETE FROM orders WHERE `id` = ?");
+$stmt = $con->prepare("DELETE FROM items WHERE `id` = ?");
 
-$stmt->execute(array($orderid));
+$stmt->execute(array($itemid));
 $count = $stmt->rowCount();
 
 if($count > 0){
