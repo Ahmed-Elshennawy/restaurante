@@ -65,9 +65,10 @@ class _HomeState extends State<Home> {
     }
   }
 
-  deleteItem(String index) async {
+  deleteItem(String index, String img) async {
     var response = await crud.postRequest(linkitemDelete, {
       "id": index,
+      "file": img,
     });
 
     if (response['status'] == 'success') {
@@ -246,8 +247,7 @@ class _HomeState extends State<Home> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Details(
-                                        image:
-                                            "$linkImageItemRoot/${item["item_image"]}",
+                                        image:"$linkImageItemRoot/${item["item_image"]}",
                                         name: item['item_name'],
                                         detail: item['item_detail'],
                                         price: item['item_price'].toString(),
@@ -336,7 +336,8 @@ class _HomeState extends State<Home> {
                           ),
                           onDismissed: (direction) {
                             setState(() {
-                              deleteItem(item['id'].toString());
+                              deleteItem(
+                                  item['id'].toString(), item['item_image']);
                               selectedList.removeAt(index);
                             });
                           },

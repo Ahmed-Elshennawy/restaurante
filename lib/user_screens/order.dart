@@ -62,6 +62,15 @@ class _OrderState extends State<Order> {
     }
   }
 
+  uploadOrder() async {
+    var response = await crud.postRequest(linkchehckorderAdd, {});
+    if (response['status'] == 'success') {
+      print("success");
+    } else {
+      print("fail");
+    }
+  }
+
   String calculateTotalPrice() {
     double totalPrice = 0;
     for (dynamic item in selectedOrders) {

@@ -40,5 +40,4 @@ String linkEditTheme = "$linkServerName/theme/edit.php";
 // profilePics
 
 String linkImageUplaod = "$linkServerName/profile/pfpUpload.php";
-String linkImageDelete = "$linkServerName/profile/pfpDelete.php";
 String linkImageView = "$linkServerName/profile/pfpView.php";

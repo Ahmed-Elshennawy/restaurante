@@ -50,6 +50,7 @@ class _ProfileState extends State<Profile> {
   deleteAccount() async {
     var response = await crud.postRequest(linkUserDelete, {
       "id": sharedPref.getString("id").toString(),
+      "file": sharedPref.getString("profile_pic_name"),
     });
 
     if (response["status"] == "success") {
