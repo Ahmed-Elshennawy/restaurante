@@ -8,6 +8,7 @@ import 'package:restaurante/main.dart';
 import '../widgets/dark_theme_provider.dart';
 import '../widgets/reused.dart';
 import '../widgets/provider.dart';
+import 'package:intl/intl.dart';
 
 class Order extends StatefulWidget {
   const Order({super.key});
@@ -62,8 +63,20 @@ class _OrderState extends State<Order> {
     }
   }
 
-  uploadOrder() async {
-    var response = await crud.postRequest(linkchehckorderAdd, {});
+  saveOrders(String name, String detail, String price, String quantity,
+      String img) async {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+
+    var response = await crud.postRequest(linkchehckorderAdd, {
+      "order_name": name,
+      "order_detail": detail,
+      "order_price": price,
+      "order_quantity": quantity,
+      "order_date": formattedDate,
+      "file": img,
+      "id": sharedPref.getString("id"),
+    });
     if (response['status'] == 'success') {
       print("success");
     } else {
@@ -229,7 +242,7 @@ class _OrderState extends State<Order> {
             ),
             const SizedBox(height: 20.0),
             InkWell(
-              onTap: () {
+              onTap: () async {
                 final double totalPrice = double.parse(calculateTotalPrice());
                 final walletProvider =
                     Provider.of<WalletProvider>(context, listen: false);
@@ -263,8 +276,17 @@ class _OrderState extends State<Order> {
                       backgroundColor: Colors.green,
                     ),
                   );
+
+                  for (var e in selectedOrders) {
+                    await saveOrders(
+                        e['order_name'],
+                        e['order_detail'],
+                        (e['order_price'] * e['order_quantity']).toString(),
+                        e['order_quantity'].toString(),
+                        e['order_image']);
+                  }
                   selectedOrders.clear();
-                  deleteAllOrder();
+                  await deleteAllOrder();
                   setState(() {});
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
