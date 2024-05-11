@@ -176,7 +176,10 @@ class _AdminItemPageState extends State<AdminItemPage> {
                                 color: selectedOurCategory == category
                                     ? Colors.black
                                     : Colors.white,
-                                border: Border.all(color: Colors.black),
+                                border: Border.all(
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white
+                                        : Colors.black),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               padding: const EdgeInsets.all(10.0),

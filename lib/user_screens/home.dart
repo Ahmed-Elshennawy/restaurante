@@ -211,7 +211,10 @@ class _HomeState extends State<Home> {
                                 color: selectedOurCategory == category
                                     ? Colors.black
                                     : Colors.white,
-                                border: Border.all(color: Colors.black),
+                                border: Border.all(
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white
+                                        : Colors.black),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               padding: const EdgeInsets.all(10.0),
@@ -247,7 +250,8 @@ class _HomeState extends State<Home> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Details(
-                                        image:"$linkImageItemRoot/${item["item_image"]}",
+                                        image:
+                                            "$linkImageItemRoot/${item["item_image"]}",
                                         name: item['item_name'],
                                         detail: item['item_detail'],
                                         price: item['item_price'].toString(),

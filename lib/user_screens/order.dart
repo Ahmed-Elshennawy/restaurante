@@ -281,7 +281,7 @@ class _OrderState extends State<Order> {
                     await saveOrders(
                         e['order_name'],
                         e['order_detail'],
-                        (e['order_price'] * e['order_quantity']).toString(),
+                        e['order_price'].toString(),
                         e['order_quantity'].toString(),
                         e['order_image']);
                   }

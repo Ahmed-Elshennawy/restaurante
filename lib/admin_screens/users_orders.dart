@@ -49,6 +49,13 @@ class _UsersOrdersState extends State<UsersOrders> {
 
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          'All Orders',
+          style: themeState.getDarkTheme
+              ? AppWidget.titleNameDark()
+              : AppWidget.titleNameLight(),
+        ),
+        centerTitle: true,
         elevation: 5.0,
         shadowColor: themeState.getDarkTheme ? Colors.white : Colors.black,
         backgroundColor: themeState.getDarkTheme ? Colors.black : Colors.white,
@@ -70,6 +77,27 @@ class _UsersOrdersState extends State<UsersOrders> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total Revenue',
+                      style: themeState.getDarkTheme
+                          ? AppWidget.platesDark()
+                          : AppWidget.platesLight(),
+                    ),
+                    Text(
+                      '\$${calculateTotalPrice()}',
+                      style: themeState.getDarkTheme
+                          ? AppWidget.platesDark()
+                          : AppWidget.platesLight(),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
               ListView.builder(
                 itemCount: userOrderList.length,
                 shrinkWrap: true,
@@ -97,8 +125,8 @@ class _UsersOrdersState extends State<UsersOrders> {
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.network(
                                       "${item["order_image"]}",
-                                      height: 105.0,
-                                      width: 105.0,
+                                      height: 120.0,
+                                      width: 120.0,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -135,12 +163,19 @@ class _UsersOrdersState extends State<UsersOrders> {
                                             ),
                                             const SizedBox(width: 30),
                                             Text(
-                                              "${item['order_quantity'].toString()} ",
+                                              "${item['order_quantity'].toString()} items",
                                               style: themeState.getDarkTheme
                                                   ? AppWidget.platesDark()
                                                   : AppWidget.platesLight(),
                                             ),
                                           ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          "${item['order_date'].toString()} ",
+                                          style: themeState.getDarkTheme
+                                              ? AppWidget.infoDark()
+                                              : AppWidget.infoLight(),
                                         ),
                                       ],
                                     ),
@@ -155,27 +190,6 @@ class _UsersOrdersState extends State<UsersOrders> {
                     ],
                   );
                 },
-              ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Total Price',
-                      style: themeState.getDarkTheme
-                          ? AppWidget.platesDark()
-                          : AppWidget.platesLight(),
-                    ),
-                    Text(
-                      '\$${calculateTotalPrice()}',
-                      style: themeState.getDarkTheme
-                          ? AppWidget.platesDark()
-                          : AppWidget.platesLight(),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
