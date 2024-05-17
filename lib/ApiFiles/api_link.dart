@@ -1,9 +1,7 @@
-import 'dart:io';
-
-final platform = Platform.isAndroid ? "10.0.2.2" : "localhost";
-
-String linkServerName = "http://$platform/ApiPHPfiles";
-String linkImageRoot = "http://$platform/ApiPHPfiles/profile/upload";
+String linkServerName = "https://restauranteapi.000webhostapp.com/ApiPHPfiles/";
+String linkImageRoot =
+    "https://restauranteapi.000webhostapp.com/ApiPHPfiles/profile/upload";
+    
 // Auth
 String linkSignUp = "$linkServerName/auth/signup.php";
 String linklogin = "$linkServerName/auth/login.php";
@@ -29,7 +27,8 @@ String linkitemAdd = "$linkServerName/items/add.php";
 String linkitemView = "$linkServerName/items/view.php";
 String linkitemDelete = "$linkServerName/items/Delete.php";
 String linkitemEdit = "$linkServerName/items/Edit.php";
-String linkImageItemRoot = "http://$platform/ApiPHPfiles/items/upload";
+String linkImageItemRoot =
+    "https://restauranteapi.000webhostapp.com/ApiPHPfiles/items/upload";
 
 // wallet
 String linkEditWallet = "$linkServerName/Wallet/edit.php";

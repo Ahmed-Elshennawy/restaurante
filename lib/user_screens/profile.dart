@@ -110,7 +110,7 @@ class _ProfileState extends State<Profile> {
                   onTap: () async {
                     await uploadImage();
                   },
-                  child: sharedPref.getString("profile_pic_name") == ""
+                  child: sharedPref.getString("profile_pic_name") == "null"
                       ? Container(
                           margin: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height / 4.5,
